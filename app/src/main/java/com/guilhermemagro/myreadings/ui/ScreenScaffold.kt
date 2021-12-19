@@ -18,8 +18,8 @@ fun ScreenScaffold() {
             )
         }
     ) { innerPadding ->
-        BodyContent(
-            Modifier.padding(innerPadding)
+        HomeScreen(
+            modifier = Modifier.padding(innerPadding)
         )
     }
 }

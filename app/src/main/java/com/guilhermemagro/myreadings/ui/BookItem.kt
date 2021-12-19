@@ -9,11 +9,11 @@ import com.guilhermemagro.myreadings.data.entities.Book
 @Composable
 fun BookItem(book: Book) {
     Column {
-        BookItemDescription(description = "Título: ", descriptionValue = book.title)
-        BookItemDescription(description = "Objetivo: ", descriptionValue = book.goal.toString())
-        BookItemDescription(description = "Total de páginas: ", descriptionValue = book.totalPages.toString())
-        BookItemDescription(description = "Página atual: ", descriptionValue = book.currentPage.toString())
-        BookItemDescription(description = "Página Inicial: ", descriptionValue = book.initialPage.toString())
+        BookItemDescription("Título: ", book.title)
+        BookItemDescription("Objetivo: ", book.goal.toString())
+        BookItemDescription("Total de páginas: ", book.totalPages.toString())
+        BookItemDescription("Página atual: ", book.currentPage.toString())
+        BookItemDescription("Página Inicial: ", book.initialPage.toString())
     }
 }
 

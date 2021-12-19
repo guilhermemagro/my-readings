@@ -8,10 +8,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.guilhermemagro.myreadings.data.entities.Book
+import com.guilhermemagro.myreadings.viewmodels.BookViewModel
 
 @Composable
-fun BodyContent(modifier: Modifier = Modifier) {
+fun HomeScreen(
+    bookViewModel: BookViewModel = viewModel(),
+    modifier: Modifier = Modifier
+) {
     val scrollState = rememberLazyListState()
     val numberOfBooks = 2
 
@@ -44,5 +49,5 @@ fun BodyContent(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 fun BodyContentPreview() {
-    BodyContent()
+    HomeScreen()
 }
