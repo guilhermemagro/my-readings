@@ -85,6 +85,12 @@ dependencies {
 
     // ViewModel KTX
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0")
+
+    // LiveData KTX
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.0")
+
+    // Compose Runtime LiveData
+    implementation("androidx.compose.runtime:runtime-livedata:1.1.0-rc01")
 }
 
 kapt {

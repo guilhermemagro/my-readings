@@ -1,11 +1,11 @@
 package com.guilhermemagro.myreadings.data.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.guilhermemagro.myreadings.data.entities.Book
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface BookDao {
@@ -13,7 +13,7 @@ interface BookDao {
     suspend fun setCurrentPage(currentPage: Int, bookId: Int)
 
     @Query("SELECT * FROM book")
-    fun getAll(): LiveData<List<Book>>
+    fun getAll(): Flow<List<Book>>
 
     @Insert
     suspend fun insert(book: Book)

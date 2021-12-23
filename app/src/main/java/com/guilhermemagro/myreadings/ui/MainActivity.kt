@@ -9,6 +9,8 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import com.guilhermemagro.myreadings.ui.theme.MyReadingsTheme
 import com.guilhermemagro.myreadings.viewmodels.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,8 +19,9 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val homeViewModel: HomeViewModel by viewModels()
         setContent {
+            val homeViewModel: HomeViewModel by viewModels()
+            val booksAndRecords by homeViewModel.booksAndRecords.observeAsState()
             MyReadingsTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
@@ -32,6 +35,7 @@ class MainActivity : ComponentActivity() {
                         }
                     ) {
                         HomeScreen(
+                            booksAndRecords = booksAndRecords,
                             onBookRegistration = homeViewModel::insertBook
                         )
                     }

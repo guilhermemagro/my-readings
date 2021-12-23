@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">MyReadings</string>
 
+    <!-- HomeScreen -->
+    <string name="home_screen_empty_books">Você não tem nenhum livro cadastrado!</string>
+
     <!--  BookRegistrationScreen  -->
     <string name="book_registration_title">Título</string>
     <string name="book_registration_total_pages">Número de páginas</string>

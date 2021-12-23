@@ -1,13 +1,12 @@
 package com.guilhermemagro.myreadings.data.repositories
 
-import androidx.lifecycle.LiveData
 import com.guilhermemagro.myreadings.data.entities.Book
 import com.guilhermemagro.myreadings.data.entities.BookAndRecords
-import com.guilhermemagro.myreadings.data.entities.Record
+import kotlinx.coroutines.flow.Flow
 
 interface BookRepository {
     // BookAndRecordsDao
-    fun getAllBooksAndRecords(): LiveData<List<BookAndRecords>>
+    fun getAllBooksAndRecords(): Flow<List<BookAndRecords>>
 //    fun getRecordsByBookId(bookId: Int): BookAndRecords
 
     // BookDao

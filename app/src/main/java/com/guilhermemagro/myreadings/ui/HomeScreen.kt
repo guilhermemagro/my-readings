@@ -6,32 +6,22 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.guilhermemagro.myreadings.R
 import com.guilhermemagro.myreadings.data.entities.Book
+import com.guilhermemagro.myreadings.data.entities.BookAndRecords
 
 @Composable
 fun HomeScreen(
+    booksAndRecords: List<BookAndRecords>? = null,
     onBookRegistration: (Book) -> Unit
 ) {
     val scrollState = rememberLazyListState()
-
-    val book1 = Book(
-        id = 1,
-        title = "Livro 1",
-        totalPages = 300,
-        currentPage = 170
-    )
-    val book2 = Book(
-        id = 2,
-        title = "Livro 2",
-        totalPages = 350,
-        currentPage = 200
-    )
-
-    val books = listOf(book1, book2)
 
     Column(
         modifier = Modifier.padding(16.dp)
@@ -40,8 +30,14 @@ fun HomeScreen(
             state = scrollState,
             verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
-            items(books) { book ->
-                BookItem(book)
+            booksAndRecords?.takeIf { it.isNotEmpty() }?.let {
+                items(booksAndRecords) { bookAndRecords ->
+                    BookItem(book = bookAndRecords.book)
+                }
+            } ?: run {
+                item {
+                    Text(stringResource(R.string.home_screen_empty_books))
+                }
             }
         }
 

@@ -1,6 +1,8 @@
 package com.guilhermemagro.myreadings.viewmodels
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.guilhermemagro.myreadings.data.entities.Book
 import com.guilhermemagro.myreadings.data.entities.BookAndRecords
@@ -13,6 +15,9 @@ import kotlinx.coroutines.launch
 class HomeViewModel @Inject constructor(
     private val bookRepository: BookRepository
 ): ViewModel() {
+
+    val booksAndRecords: LiveData<List<BookAndRecords>> =
+        bookRepository.getAllBooksAndRecords().asLiveData()
 
     fun insertBook(book: Book) {
         viewModelScope.launch {

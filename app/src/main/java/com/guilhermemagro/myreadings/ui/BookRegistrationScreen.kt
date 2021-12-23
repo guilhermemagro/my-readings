@@ -20,9 +20,13 @@ import com.guilhermemagro.myreadings.utils.filterNumbers
 fun BookRegistrationScreen(
     onBookRegistration: (Book) -> Unit
 ) {
-    val titleTextState = remember { mutableStateOf("")}
-    val totalPagesTextState = remember { mutableStateOf("")}
-    val currentPageTextState = remember { mutableStateOf("")}
+    val titleTextState = remember { mutableStateOf("") }
+    val totalPagesTextState = remember { mutableStateOf("") }
+    val currentPageTextState = remember { mutableStateOf("") }
+
+    val allFieldsFilled = titleTextState.value != "" &&
+        totalPagesTextState.value != "" &&
+        currentPageTextState.value != ""
 
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -45,22 +49,25 @@ fun BookRegistrationScreen(
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
 
-        if (
-            titleTextState.value != "" &&
-            totalPagesTextState.value != "" &&
-            currentPageTextState.value != ""
-        ) {
-            Button(onClick = {
+
+        Button(
+            onClick = {
                 onBookRegistration(
                     Book(
                         title = titleTextState.value,
                         totalPages = totalPagesTextState.value.toInt(),
                         currentPage = currentPageTextState.value.toInt()
                     )
-                )}
-            ) {
-                Text(stringResource(R.string.book_registration_register))
-            }
+                )
+                titleTextState.value = ""
+                totalPagesTextState.value = ""
+                currentPageTextState.value = ""
+            },
+            enabled = allFieldsFilled
+        ) {
+            Text(stringResource(R.string.book_registration_register))
         }
     }
+
+
 }
