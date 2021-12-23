@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">MyReadings</string>
+
+    <!--  BookRegistrationScreen  -->
+    <string name="book_registration_title">Título</string>
+    <string name="book_registration_total_pages">Número de páginas</string>
+    <string name="book_registration_current_page">Página atual</string>
+    <string name="book_registration_register">Registrar livro</string>
 </resources>

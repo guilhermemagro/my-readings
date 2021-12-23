@@ -10,10 +10,8 @@ import com.guilhermemagro.myreadings.data.entities.Book
 fun BookItem(book: Book) {
     Column {
         BookItemDescription("Título: ", book.title)
-        BookItemDescription("Objetivo: ", book.goal.toString())
         BookItemDescription("Total de páginas: ", book.totalPages.toString())
         BookItemDescription("Página atual: ", book.currentPage.toString())
-        BookItemDescription("Página Inicial: ", book.initialPage.toString())
     }
 }
 

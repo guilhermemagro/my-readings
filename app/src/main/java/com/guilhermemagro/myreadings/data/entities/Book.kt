@@ -6,10 +6,8 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Book (
-    @PrimaryKey(autoGenerate = true) val id: Int,
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val title: String,
-    val goal: Int,
     @ColumnInfo(name = "total_pages") val totalPages: Int,
-    @ColumnInfo(name = "current_page") val currentPage: Int,
-    @ColumnInfo(name = "initial_page") val initialPage: Int,
+    @ColumnInfo(name = "current_page") val currentPage: Int
 )

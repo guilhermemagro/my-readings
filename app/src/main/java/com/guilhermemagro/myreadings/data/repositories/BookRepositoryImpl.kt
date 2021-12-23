@@ -1,17 +1,18 @@
 package com.guilhermemagro.myreadings.data.repositories
 
-import com.guilhermemagro.myreadings.data.AppDatabase
+import com.guilhermemagro.myreadings.data.dao.BookAndRecordsDao
+import com.guilhermemagro.myreadings.data.dao.BookDao
+import com.guilhermemagro.myreadings.data.dao.RecordDao
 import com.guilhermemagro.myreadings.data.entities.Book
 import com.guilhermemagro.myreadings.data.entities.BookAndRecords
 import com.guilhermemagro.myreadings.data.entities.Record
+import javax.inject.Inject
 
-class BookRepositoryImpl(
-    private val appDatabase: AppDatabase
+class BookRepositoryImpl @Inject constructor(
+    private val bookDao: BookDao,
+    private val recordDao: RecordDao,
+    private val bookAndRecordsDao: BookAndRecordsDao
 ) : BookRepository {
-
-    private val bookAndRecordsDao = appDatabase.bookAndRecordsDao()
-    private val bookDao = appDatabase.bookDao()
-    private val recordDao = appDatabase.recordDao()
 
     override fun getAllBooksAndRecords(): List<BookAndRecords> {
         return bookAndRecordsDao.getAll()

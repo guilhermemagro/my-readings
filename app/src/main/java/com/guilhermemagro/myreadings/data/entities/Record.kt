@@ -9,12 +9,12 @@ import androidx.room.PrimaryKey
     foreignKeys = [ForeignKey(
         entity = Book::class,
         parentColumns = arrayOf("id"),
-        childColumns = arrayOf("book")
+        childColumns = arrayOf("bookId")
     )]
 )
 data class Record (
     @PrimaryKey(autoGenerate = true) val id: Int,
-    val book: Book,
+    @ColumnInfo(index = true) val bookId: Int,
     val date: String,
     @ColumnInfo(name = "pages_read") val pagesRead: Int,
 )
