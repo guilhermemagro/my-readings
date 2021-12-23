@@ -3,6 +3,7 @@ package com.guilhermemagro.myreadings.ui
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -36,7 +37,9 @@ fun HomeScreen(
 
     val books = listOf(book1, book2)
 
-    Column {
+    Column(
+        modifier = Modifier.padding(16.dp)
+    ) {
         LazyColumn(
             state = scrollState,
             verticalArrangement = Arrangement.spacedBy(20.dp)
