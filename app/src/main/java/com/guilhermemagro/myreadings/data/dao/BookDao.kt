@@ -1,5 +1,6 @@
 package com.guilhermemagro.myreadings.data.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -9,14 +10,14 @@ import com.guilhermemagro.myreadings.data.entities.Book
 @Dao
 interface BookDao {
     @Query("UPDATE book SET current_page = :currentPage WHERE id = :bookId")
-    fun setCurrentPage(currentPage: Int, bookId: Int)
+    suspend fun setCurrentPage(currentPage: Int, bookId: Int)
 
     @Query("SELECT * FROM book")
-    fun getAll(): List<Book>
+    fun getAll(): LiveData<List<Book>>
 
     @Insert
-    fun insert(book: Book)
+    suspend fun insert(book: Book)
 
     @Delete
-    fun delete(book: Book)
+    suspend fun delete(book: Book)
 }
