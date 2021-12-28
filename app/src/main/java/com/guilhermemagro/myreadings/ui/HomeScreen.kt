@@ -47,6 +47,7 @@ fun HomeScreen(
             } ?: run {
                 item {
                     Column(
+                        modifier = Modifier.fillMaxWidth(),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Icon(Icons.Filled.AddCircle, null)

@@ -6,23 +6,30 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Card
 import androidx.compose.material.LinearProgressIndicator
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.guilhermemagro.myreadings.R
 import com.guilhermemagro.myreadings.data.entities.Book
+import java.util.*
 
 @Composable
 fun BookItem(book: Book) {
     var progress = book.currentPage.toFloat() / book.totalPages.toFloat()
     if (progress > 1.0) progress = 1.0F
+
+    val progressColor = if (progress == 1.0F) Color.Green else MaterialTheme.colors.primary
 
     Card(
         modifier = Modifier.fillMaxWidth(),
@@ -33,7 +40,7 @@ fun BookItem(book: Book) {
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             Text(
-                text = book.title,
+                text = book.title.uppercase(Locale.getDefault()),
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -51,8 +58,9 @@ fun BookItem(book: Book) {
                     }
             )
             LinearProgressIndicator(
+                progress = progress,
                 modifier = Modifier.fillMaxWidth(),
-                progress = progress
+                color = progressColor
             )
         }
     }

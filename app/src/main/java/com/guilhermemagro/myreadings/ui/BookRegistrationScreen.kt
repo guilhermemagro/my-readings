@@ -36,19 +36,22 @@ fun BookRegistrationScreen(
         TextField(
             value = titleTextState,
             onValueChange = { titleTextState = it },
-            label = { Text(stringResource(R.string.book_registration_title)) }
+            label = { Text(stringResource(R.string.book_registration_title)) },
+            maxLines = 1
         )
         TextField(
             value = currentPageTextState,
             onValueChange = { currentPageTextState = it.filterNumbers() },
             label = { Text(stringResource(R.string.book_registration_current_page)) },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            maxLines = 1
         )
         TextField(
             value = totalPagesTextState,
             onValueChange = { totalPagesTextState = it.filterNumbers() },
             label = { Text(stringResource(R.string.book_registration_total_pages)) },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            maxLines = 1
         )
 
         Button(
