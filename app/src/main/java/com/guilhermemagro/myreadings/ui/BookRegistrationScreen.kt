@@ -7,8 +7,10 @@ import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -20,48 +22,47 @@ import com.guilhermemagro.myreadings.utils.filterNumbers
 fun BookRegistrationScreen(
     onBookRegistration: (Book) -> Unit
 ) {
-    val titleTextState = remember { mutableStateOf("") }
-    val totalPagesTextState = remember { mutableStateOf("") }
-    val currentPageTextState = remember { mutableStateOf("") }
+    var titleTextState by remember { mutableStateOf("") }
+    var totalPagesTextState by remember { mutableStateOf("") }
+    var currentPageTextState by remember { mutableStateOf("") }
 
-    val allFieldsFilled = titleTextState.value != "" &&
-        totalPagesTextState.value != "" &&
-        currentPageTextState.value != ""
+    val allFieldsFilled = titleTextState != "" &&
+        totalPagesTextState != "" &&
+        currentPageTextState != ""
 
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         TextField(
-            value = titleTextState.value,
-            onValueChange = { titleTextState.value = it },
+            value = titleTextState,
+            onValueChange = { titleTextState = it },
             label = { Text(stringResource(R.string.book_registration_title)) }
         )
         TextField(
-            value = totalPagesTextState.value,
-            onValueChange = { totalPagesTextState.value = it.filterNumbers() },
-            label = { Text(stringResource(R.string.book_registration_total_pages)) },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-        )
-        TextField(
-            value = currentPageTextState.value,
-            onValueChange = { currentPageTextState.value = it.filterNumbers() },
+            value = currentPageTextState,
+            onValueChange = { currentPageTextState = it.filterNumbers() },
             label = { Text(stringResource(R.string.book_registration_current_page)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
-
+        TextField(
+            value = totalPagesTextState,
+            onValueChange = { totalPagesTextState = it.filterNumbers() },
+            label = { Text(stringResource(R.string.book_registration_total_pages)) },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+        )
 
         Button(
             onClick = {
                 onBookRegistration(
                     Book(
-                        title = titleTextState.value,
-                        totalPages = totalPagesTextState.value.toInt(),
-                        currentPage = currentPageTextState.value.toInt()
+                        title = titleTextState,
+                        totalPages = totalPagesTextState.toInt(),
+                        currentPage = currentPageTextState.toInt()
                     )
                 )
-                titleTextState.value = ""
-                totalPagesTextState.value = ""
-                currentPageTextState.value = ""
+                titleTextState = ""
+                totalPagesTextState = ""
+                currentPageTextState = ""
             },
             enabled = allFieldsFilled
         ) {
