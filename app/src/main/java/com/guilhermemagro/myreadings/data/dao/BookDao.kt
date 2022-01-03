@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import com.guilhermemagro.myreadings.data.entities.Book
 import kotlinx.coroutines.flow.Flow
 
@@ -20,4 +21,7 @@ interface BookDao {
 
     @Delete
     suspend fun delete(book: Book)
+
+    @Update
+    suspend fun update(book: Book)
 }

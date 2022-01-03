@@ -1,7 +1,9 @@
 package com.guilhermemagro.myreadings.di
 
-import com.guilhermemagro.myreadings.data.repositories.BookRepository
-import com.guilhermemagro.myreadings.data.repositories.BookRepositoryImpl
+import com.guilhermemagro.myreadings.data.repositories.EditRepository
+import com.guilhermemagro.myreadings.data.repositories.EditRepositoryImpl
+import com.guilhermemagro.myreadings.data.repositories.HomeRepository
+import com.guilhermemagro.myreadings.data.repositories.HomeRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -12,7 +14,12 @@ import dagger.hilt.android.components.ViewModelComponent
 abstract class RepositoryModule {
 
     @Binds
-    abstract fun bindBookRepository(
-        bookRepositoryImpl: BookRepositoryImpl
-    ) : BookRepository
+    abstract fun bindHomeRepository(
+        bookRepositoryImpl: HomeRepositoryImpl
+    ) : HomeRepository
+
+    @Binds
+    abstract fun bindEditRepository(
+        editRepositoryImpl: EditRepositoryImpl
+    ) : EditRepository
 }

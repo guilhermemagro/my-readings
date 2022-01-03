@@ -4,7 +4,7 @@ import com.guilhermemagro.myreadings.data.entities.Book
 import com.guilhermemagro.myreadings.data.entities.BookAndRecords
 import kotlinx.coroutines.flow.Flow
 
-interface BookRepository {
+interface HomeRepository {
     // BookAndRecordsDao
     fun getAllBooksAndRecords(): Flow<List<BookAndRecords>>
 //    fun getRecordsByBookId(bookId: Int): BookAndRecords
@@ -13,7 +13,6 @@ interface BookRepository {
 //    fun setCurrentPage(currentPage: Int, bookId: Int)
 //    fun getAllBooks(): List<Book>
     suspend fun insertBook(book: Book)
-    suspend fun deleteBook(book: Book)
 
     // RecordDao
 //    fun updateRecord(record: Record)

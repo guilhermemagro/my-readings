@@ -6,18 +6,14 @@ import com.guilhermemagro.myreadings.data.dao.RecordDao
 import com.guilhermemagro.myreadings.data.entities.Book
 import javax.inject.Inject
 
-class BookRepositoryImpl @Inject constructor(
+class HomeRepositoryImpl @Inject constructor(
     private val bookDao: BookDao,
     private val recordDao: RecordDao,
     private val bookAndRecordsDao: BookAndRecordsDao
-) : BookRepository {
+) : HomeRepository {
 
     override fun getAllBooksAndRecords() = bookAndRecordsDao.getAll()
 
-//    override fun getRecordsByBookId(bookId: Int): BookAndRecords {
-//        return bookAndRecordsDao.getRecordsByBookId(bookId)
-//    }
-//
 //    override fun setCurrentPage(currentPage: Int, bookId: Int) {
 //        bookDao.setCurrentPage(currentPage, bookId)
 //    }
@@ -28,10 +24,6 @@ class BookRepositoryImpl @Inject constructor(
 
     override suspend fun insertBook(book: Book) {
         bookDao.insert(book)
-    }
-
-    override suspend fun deleteBook(book: Book) {
-        bookDao.delete(book)
     }
 
 //    override fun updateRecord(record: Record) {
