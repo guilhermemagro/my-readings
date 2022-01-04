@@ -3,6 +3,7 @@ package com.guilhermemagro.myreadings.data.dao
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.guilhermemagro.myreadings.data.entities.Book
@@ -22,6 +23,6 @@ interface BookDao {
     @Delete
     suspend fun delete(book: Book)
 
-    @Update
+    @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun update(book: Book)
 }

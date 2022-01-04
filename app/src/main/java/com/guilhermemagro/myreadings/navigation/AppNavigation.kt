@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -14,9 +13,9 @@ import androidx.navigation.navArgument
 import com.guilhermemagro.myreadings.data.entities.BookAndRecords
 import com.guilhermemagro.myreadings.ui.EditScreen
 import com.guilhermemagro.myreadings.ui.HomeScreen
+import com.guilhermemagro.myreadings.utils.assistedViewModel
 import com.guilhermemagro.myreadings.viewmodels.EditViewModel
 import com.guilhermemagro.myreadings.viewmodels.HomeViewModel
-import kotlinx.coroutines.launch
 
 @Composable
 fun AppNavigation() {
@@ -40,13 +39,11 @@ fun AppNavigation() {
             )
         ) { navBackStackEntry ->
             val bookId = navBackStackEntry.arguments?.getInt(Screen.EditScreen.argument0) ?: return@composable
-            // TODO - Fix it
-            val editViewModel: EditViewModel = hiltViewModel()
-            var bookAndRecords: BookAndRecords? = null
-            LaunchedEffect(true) {
-                bookAndRecords = editViewModel.getBookAndRecordsByBookId(bookId)
+            val editViewModel: EditViewModel = assistedViewModel {
+                EditViewModel.provideFactory(editViewModelFactory(), bookId)
             }
-            EditScreen(bookAndRecords)
+
+            EditScreen()
         }
     }
 }

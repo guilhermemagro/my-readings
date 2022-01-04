@@ -18,4 +18,5 @@
 - [GitHub: Jetpack Compose Playground](https://foso.github.io/Jetpack-Compose-Playground/)
 - [Medium: Assisted Injection using Hilt (Hilt Part 5)](https://write.agrevolution.in/dependency-injection-using-hilt-part-5-d517ac726a7)
 - [Medium: Providing AssistedInject supported ViewModel for Composable using Hilt](https://medium.com/scalereal/providing-assistedinject-supported-viewmodel-for-composable-using-hilt-ae973632e29a)
-- [Doc: ](https://developer.android.com/jetpack/compose/side-effects)
+- [GitHub: NotyKT](https://github.com/PatilShreyas/NotyKT)
+- [Doc: Side-effects in Compose](https://developer.android.com/jetpack/compose/side-effects)

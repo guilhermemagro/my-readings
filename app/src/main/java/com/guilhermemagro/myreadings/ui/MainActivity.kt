@@ -10,10 +10,21 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import com.guilhermemagro.myreadings.navigation.AppNavigation
 import com.guilhermemagro.myreadings.ui.theme.MyReadingsTheme
+import com.guilhermemagro.myreadings.viewmodels.EditViewModel
+import dagger.hilt.EntryPoint
+import dagger.hilt.InstallIn
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.components.ActivityComponent
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @EntryPoint
+    @InstallIn(ActivityComponent::class)
+    interface ViewModelFactoryProvider {
+        fun editViewModelFactory(): EditViewModel.Factory
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
