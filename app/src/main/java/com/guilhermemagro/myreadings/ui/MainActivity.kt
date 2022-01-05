@@ -19,6 +19,7 @@ import dagger.hilt.android.components.ActivityComponent
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
+    // TODO - Try moving it to a separated file
     @EntryPoint
     @InstallIn(ActivityComponent::class)
     interface ViewModelFactoryProvider {

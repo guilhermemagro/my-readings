@@ -1,7 +1,6 @@
 package com.guilhermemagro.myreadings.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -10,7 +9,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.guilhermemagro.myreadings.data.entities.BookAndRecords
 import com.guilhermemagro.myreadings.ui.EditScreen
 import com.guilhermemagro.myreadings.ui.HomeScreen
 import com.guilhermemagro.myreadings.utils.assistedViewModel
@@ -29,11 +27,14 @@ fun AppNavigation() {
             val booksAndRecords by homeViewModel.booksAndRecords.observeAsState()
             HomeScreen(
                 booksAndRecords = booksAndRecords,
-                onBookRegistration = homeViewModel::insertBook
+                onBookRegistration = homeViewModel::insertBook,
+                onBookCardClick = { selectedBook ->
+                    navController.navigate(Screen.EditScreen.route(selectedBook.id))
+                }
             )
         }
         composable(
-            route = Screen.EditScreen.routeWithArgument,
+            route = Screen.EditScreen.route,
             arguments = listOf(
                 navArgument(Screen.EditScreen.argument0) { type = NavType.IntType }
             )
@@ -42,8 +43,7 @@ fun AppNavigation() {
             val editViewModel: EditViewModel = assistedViewModel {
                 EditViewModel.provideFactory(editViewModelFactory(), bookId)
             }
-
-            EditScreen()
+            EditScreen(numberTest = bookId)
         }
     }
 }

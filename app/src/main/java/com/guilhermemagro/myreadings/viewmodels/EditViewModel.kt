@@ -16,6 +16,8 @@ class EditViewModel @AssistedInject constructor(
     @Assisted private val bookId: Int
 ) : ViewModel() {
 
+    val test = 1
+
     // TODO - Fix it
     suspend fun getBookAndRecordsByBookId(bookId: Int): BookAndRecords? {
         return editRepository.getBookAndRecordsByBookId(bookId)

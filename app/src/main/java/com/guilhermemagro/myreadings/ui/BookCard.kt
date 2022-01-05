@@ -1,5 +1,6 @@
 package com.guilhermemagro.myreadings.ui
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,9 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -25,14 +24,16 @@ import com.guilhermemagro.myreadings.data.entities.Book
 import java.util.*
 
 @Composable
-fun BookItem(book: Book) {
+fun BookCard(book: Book, onBookCardClick: (Book) -> Unit) {
     var progress = book.currentPage.toFloat() / book.totalPages.toFloat()
     if (progress > 1.0) progress = 1.0F
 
     val progressColor = if (progress == 1.0F) Color.Green else MaterialTheme.colors.primary
 
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onBookCardClick(book) },
         elevation = 8.dp
     ) {
         Column(

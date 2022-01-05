@@ -25,7 +25,8 @@ import com.guilhermemagro.myreadings.data.entities.BookAndRecords
 @Composable
 fun HomeScreen(
     booksAndRecords: List<BookAndRecords>? = null,
-    onBookRegistration: (Book) -> Unit
+    onBookRegistration: (Book) -> Unit,
+    onBookCardClick: (Book) -> Unit
 ) {
     val scrollState = rememberLazyListState()
 
@@ -42,7 +43,7 @@ fun HomeScreen(
         ) {
             booksAndRecords?.takeIf { it.isNotEmpty() }?.let {
                 items(booksAndRecords) { bookAndRecords ->
-                    BookItem(book = bookAndRecords.book)
+                    BookCard(book = bookAndRecords.book, onBookCardClick = onBookCardClick)
                 }
             } ?: run {
                 item {
@@ -65,6 +66,7 @@ fun HomeScreen(
 @Composable
 fun BodyContentPreview() {
     HomeScreen(
-        onBookRegistration = {}
+        onBookRegistration = {},
+        onBookCardClick = {}
     )
 }
