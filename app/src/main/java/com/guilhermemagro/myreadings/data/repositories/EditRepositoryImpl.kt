@@ -12,8 +12,7 @@ class EditRepositoryImpl @Inject constructor(
     private val bookAndRecordsDao: BookAndRecordsDao
 ) : EditRepository {
 
-    // TODO - Fix it
-    override suspend fun getBookAndRecordsByBookId(bookId: Int): BookAndRecords? {
+    override fun getBookAndRecordsByBookId(bookId: Int): Flow<BookAndRecords> {
         return bookAndRecordsDao.getBookAndRecordsByBookId(bookId)
     }
 

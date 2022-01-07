@@ -12,8 +12,7 @@ interface BookAndRecordsDao {
     @Query("SELECT * FROM book")
     fun getAll(): Flow<List<BookAndRecords>>
 
-    // TODO - Fix it
     @Transaction
     @Query("SELECT * FROM book WHERE id = :bookId")
-    suspend fun getBookAndRecordsByBookId(bookId: Int): BookAndRecords?
+    fun getBookAndRecordsByBookId(bookId: Int): Flow<BookAndRecords>
 }

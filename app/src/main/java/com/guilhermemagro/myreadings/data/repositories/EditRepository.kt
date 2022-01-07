@@ -7,5 +7,5 @@ import kotlinx.coroutines.flow.Flow
 interface EditRepository {
     suspend fun deleteBook(book: Book)
     suspend fun updateBook(book: Book)
-    suspend fun getBookAndRecordsByBookId(bookId: Int): BookAndRecords?
+    fun getBookAndRecordsByBookId(bookId: Int): Flow<BookAndRecords>
 }

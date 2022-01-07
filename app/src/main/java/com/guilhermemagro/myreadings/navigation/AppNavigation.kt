@@ -43,7 +43,8 @@ fun AppNavigation() {
             val editViewModel: EditViewModel = assistedViewModel {
                 EditViewModel.provideFactory(editViewModelFactory(), bookId)
             }
-            EditScreen(numberTest = bookId)
+            val selectedBookAndRecords by editViewModel.bookAndRecords.observeAsState()
+            EditScreen(selectedBookAndRecords)
         }
     }
 }

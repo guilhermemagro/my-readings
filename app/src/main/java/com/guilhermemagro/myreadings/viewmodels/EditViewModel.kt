@@ -2,9 +2,9 @@ package com.guilhermemagro.myreadings.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.guilhermemagro.myreadings.data.entities.Book
-import com.guilhermemagro.myreadings.data.entities.BookAndRecords
 import com.guilhermemagro.myreadings.data.repositories.EditRepository
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
@@ -16,12 +16,8 @@ class EditViewModel @AssistedInject constructor(
     @Assisted private val bookId: Int
 ) : ViewModel() {
 
-    val test = 1
-
-    // TODO - Fix it
-    suspend fun getBookAndRecordsByBookId(bookId: Int): BookAndRecords? {
-        return editRepository.getBookAndRecordsByBookId(bookId)
-    }
+    val bookAndRecords = editRepository.getBookAndRecordsByBookId(bookId)
+        .asLiveData(viewModelScope.coroutineContext)
 
     fun deleteBook(book: Book) {
         viewModelScope.launch {

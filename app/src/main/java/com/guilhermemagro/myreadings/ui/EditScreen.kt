@@ -6,13 +6,11 @@ import com.guilhermemagro.myreadings.data.entities.BookAndRecords
 
 @Composable
 fun EditScreen(
-    bookAndRecords: BookAndRecords? = null,
-    numberTest: Int
+    bookAndRecords: BookAndRecords? = null
 ) {
     bookAndRecords?.let {
-        Text(it.book.title)
+        Text(text = bookAndRecords.toString())
     } ?: run {
-        Text("Empty book!")
+        Text("Something went wrong! Please try again later =/")
     }
-    Text(numberTest.toString())
 }
