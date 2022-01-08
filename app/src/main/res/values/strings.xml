@@ -6,9 +6,18 @@
     <string name="home_screen_pages_separation">\u0020de\u0020</string>
     <string name="home_screen_pages_end">\u0020páginas</string>
 
-    <!--  BookRegistrationScreen  -->
-    <string name="book_registration_title">Título</string>
-    <string name="book_registration_total_pages">Total de páginas</string>
-    <string name="book_registration_current_page">Página atual</string>
-    <string name="book_registration_register">Registrar livro</string>
+    <!--  RegistrationScreen  -->
+    <string name="registration_screen_title">Título</string>
+    <string name="registration_screen_total_pages">Total de páginas</string>
+    <string name="registration_screen_current_page">Página atual</string>
+    <string name="registration_screen_register">Registrar livro</string>
+
+    <!--  EditScreen  -->
+    <string name="edit_screen_title">Título</string>
+    <string name="edit_screen_total_pages">Total de páginas</string>
+    <string name="edit_screen_current_page">Página atual</string>
+    <string name="edit_screen_edit">Editar livro</string>
+    <string name="edit_screen_delete">Deletar livro</string>
+    <string name="edit_screen_delete_icon">Deletar</string>
+    <string name="edit_screen_delete_snackbar">Livro %1$s deletado!</string>
 </resources>

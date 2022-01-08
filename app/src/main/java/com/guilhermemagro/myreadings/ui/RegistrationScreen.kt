@@ -19,7 +19,7 @@ import com.guilhermemagro.myreadings.data.entities.Book
 import com.guilhermemagro.myreadings.utils.filterNumbers
 
 @Composable
-fun BookRegistrationScreen(
+fun RegistrationScreen(
     onBookRegistration: (Book) -> Unit
 ) {
     var titleTextState by remember { mutableStateOf("") }
@@ -36,24 +36,23 @@ fun BookRegistrationScreen(
         TextField(
             value = titleTextState,
             onValueChange = { titleTextState = it },
-            label = { Text(stringResource(R.string.book_registration_title)) },
+            label = { Text(stringResource(R.string.registration_screen_title)) },
             maxLines = 1
         )
         TextField(
             value = currentPageTextState,
             onValueChange = { currentPageTextState = it.filterNumbers() },
-            label = { Text(stringResource(R.string.book_registration_current_page)) },
+            label = { Text(stringResource(R.string.registration_screen_current_page)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             maxLines = 1
         )
         TextField(
             value = totalPagesTextState,
             onValueChange = { totalPagesTextState = it.filterNumbers() },
-            label = { Text(stringResource(R.string.book_registration_total_pages)) },
+            label = { Text(stringResource(R.string.registration_screen_total_pages)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             maxLines = 1
         )
-
         Button(
             onClick = {
                 onBookRegistration(
@@ -69,9 +68,7 @@ fun BookRegistrationScreen(
             },
             enabled = allFieldsFilled
         ) {
-            Text(stringResource(R.string.book_registration_register))
+            Text(stringResource(R.string.registration_screen_register))
         }
     }
-
-
 }

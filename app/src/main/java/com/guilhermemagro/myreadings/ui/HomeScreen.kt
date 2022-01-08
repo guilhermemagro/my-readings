@@ -58,7 +58,7 @@ fun HomeScreen(
             }
         }
 
-        BookRegistrationScreen(onBookRegistration = onBookRegistration)
+        RegistrationScreen(onBookRegistration = onBookRegistration)
     }
 }
 

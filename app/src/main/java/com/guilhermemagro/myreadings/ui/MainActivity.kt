@@ -8,6 +8,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
+import androidx.compose.material.rememberScaffoldState
 import com.guilhermemagro.myreadings.navigation.AppNavigation
 import com.guilhermemagro.myreadings.ui.theme.MyReadingsTheme
 import com.guilhermemagro.myreadings.viewmodels.EditViewModel
@@ -32,7 +33,9 @@ class MainActivity : ComponentActivity() {
             MyReadingsTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
+                    val scaffoldState = rememberScaffoldState()
                     Scaffold(
+                        scaffoldState = scaffoldState,
                         topBar = {
                             TopAppBar(
                                 title = {
@@ -41,7 +44,7 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                     ) {
-                        AppNavigation()
+                        AppNavigation(scaffoldState = scaffoldState)
                     }
                 }
             }

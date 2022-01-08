@@ -20,3 +20,5 @@
 - [Medium: Providing AssistedInject supported ViewModel for Composable using Hilt](https://medium.com/scalereal/providing-assistedinject-supported-viewmodel-for-composable-using-hilt-ae973632e29a)
 - [GitHub: NotyKT](https://github.com/PatilShreyas/NotyKT)
 - [Doc: Side-effects in Compose](https://developer.android.com/jetpack/compose/side-effects)
+- [Medium: Using LiveData & Flow in MVVM — Part I](https://proandroiddev.com/using-livedata-flow-in-mvvm-part-i-a98fe06077a0)
+- [Medium: Cold flows, hot channels](https://elizarov.medium.com/cold-flows-hot-channels-d74769805f9)
