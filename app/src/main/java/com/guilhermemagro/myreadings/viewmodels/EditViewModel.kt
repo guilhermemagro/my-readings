@@ -5,29 +5,29 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.guilhermemagro.myreadings.data.entities.Book
-import com.guilhermemagro.myreadings.data.repositories.EditRepository
+import com.guilhermemagro.myreadings.data.repositories.BookRepository
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.launch
 
 class EditViewModel @AssistedInject constructor(
-    private val editRepository: EditRepository,
+    private val bookRepository: BookRepository,
     @Assisted private val bookId: Int
 ) : ViewModel() {
 
-    val bookAndRecords = editRepository.getBookAndRecordsByBookId(bookId)
+    val bookAndRecords = bookRepository.getBookAndRecordsByBookId(bookId)
         .asLiveData(viewModelScope.coroutineContext)
 
     fun deleteBook(book: Book) {
         viewModelScope.launch {
-            editRepository.deleteBook(book)
+            bookRepository.deleteBook(book)
         }
     }
 
     fun updateBook(book: Book) {
         viewModelScope.launch {
-            editRepository.updateBook(book)
+            bookRepository.updateBook(book)
         }
     }
 

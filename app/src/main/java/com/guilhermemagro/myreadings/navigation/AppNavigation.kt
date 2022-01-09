@@ -15,6 +15,7 @@ import androidx.navigation.navArgument
 import com.guilhermemagro.myreadings.R
 import com.guilhermemagro.myreadings.ui.EditScreen
 import com.guilhermemagro.myreadings.ui.HomeScreen
+import com.guilhermemagro.myreadings.ui.RegistrationScreen
 import com.guilhermemagro.myreadings.utils.assistedViewModel
 import com.guilhermemagro.myreadings.viewmodels.EditViewModel
 import com.guilhermemagro.myreadings.viewmodels.HomeViewModel
@@ -30,7 +31,7 @@ fun AppNavigation(
         navController = navController,
         startDestination = Screen.HomeScreen.route
     ) {
-        composable(Screen.HomeScreen.route) {
+        composable(route = Screen.HomeScreen.route) {
             val homeViewModel: HomeViewModel = hiltViewModel()
             val booksAndRecords by homeViewModel.booksAndRecords.observeAsState()
             HomeScreen(
@@ -41,6 +42,10 @@ fun AppNavigation(
                 }
             )
         }
+
+        composable(route = Screen.RegistrationScreen.route) {
+        }
+
         composable(
             route = Screen.EditScreen.route,
             arguments = listOf(
