@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -25,7 +26,7 @@ import com.guilhermemagro.myreadings.data.entities.BookAndRecords
 @Composable
 fun HomeScreen(
     booksAndRecords: List<BookAndRecords>? = null,
-    onBookRegistration: (Book) -> Unit,
+    onRegistrationClick: () -> Unit,
     onBookCardClick: (Book) -> Unit
 ) {
     val scrollState = rememberLazyListState()
@@ -56,17 +57,20 @@ fun HomeScreen(
                     }
                 }
             }
+            item {
+                Button(onClick = { onRegistrationClick() }) {
+                    Text(text = "Cadastrar novo livro")
+                }
+            }
         }
-
-        RegistrationScreen(onBookRegistration = onBookRegistration)
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun BodyContentPreview() {
     HomeScreen(
-        onBookRegistration = {},
+        onRegistrationClick = {},
         onBookCardClick = {}
     )
 }

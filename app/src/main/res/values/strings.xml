@@ -10,7 +10,9 @@
     <string name="registration_screen_title">Título</string>
     <string name="registration_screen_total_pages">Total de páginas</string>
     <string name="registration_screen_current_page">Página atual</string>
-    <string name="registration_screen_register">Registrar livro</string>
+    <string name="registration_screen_register">Cadastrar livro</string>
+    <string name="registration_screen_register_icon">Cadastrar</string>
+    <string name="registration_screen_registration_snackbar">Livro %1$s cadastrado com sucesso!</string>
 
     <!--  EditScreen  -->
     <string name="edit_screen_title">Título</string>
@@ -20,5 +22,6 @@
     <string name="edit_screen_edit_icon">Editar</string>
     <string name="edit_screen_delete">Deletar livro</string>
     <string name="edit_screen_delete_icon">Deletar</string>
-    <string name="edit_screen_delete_snackbar">Livro %1$s deletado!</string>
+    <string name="edit_screen_delete_snackbar">Livro %1$s deletado com sucesso!</string>
+    <string name="edit_screen_edit_snackbar">Livro %1$s editado com sucesso!</string>
 </resources>

@@ -18,10 +18,4 @@ class HomeViewModel @Inject constructor(
 
     val booksAndRecords: LiveData<List<BookAndRecords>> =
         bookRepository.getAllBooksAndRecords().asLiveData()
-
-    fun insertBook(book: Book) {
-        viewModelScope.launch {
-            bookRepository.insertBook(book)
-        }
-    }
 }

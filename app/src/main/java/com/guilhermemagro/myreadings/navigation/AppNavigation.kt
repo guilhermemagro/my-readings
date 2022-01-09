@@ -19,6 +19,7 @@ import com.guilhermemagro.myreadings.ui.RegistrationScreen
 import com.guilhermemagro.myreadings.utils.assistedViewModel
 import com.guilhermemagro.myreadings.viewmodels.EditViewModel
 import com.guilhermemagro.myreadings.viewmodels.HomeViewModel
+import com.guilhermemagro.myreadings.viewmodels.RegistrationViewModel
 import kotlinx.coroutines.launch
 
 @Composable
@@ -36,7 +37,7 @@ fun AppNavigation(
             val booksAndRecords by homeViewModel.booksAndRecords.observeAsState()
             HomeScreen(
                 booksAndRecords = booksAndRecords,
-                onBookRegistration = homeViewModel::insertBook,
+                onRegistrationClick = { navController.navigate(Screen.RegistrationScreen.route) },
                 onBookCardClick = { selectedBook ->
                     navController.navigate(Screen.EditScreen.route(selectedBook.id))
                 }
@@ -44,6 +45,22 @@ fun AppNavigation(
         }
 
         composable(route = Screen.RegistrationScreen.route) {
+            val registrationViewModel: RegistrationViewModel = hiltViewModel()
+            val context = LocalContext.current
+            RegistrationScreen(
+                onBookRegistration = { book ->
+                    registrationViewModel.insertBook(book)
+                    navController.navigateUp()
+                    appScope.launch {
+                        scaffoldState.snackbarHostState.showSnackbar(
+                            context.getString(
+                                R.string.registration_screen_registration_snackbar,
+                                book.title
+                            )
+                        )
+                    }
+                }
+            )
         }
 
         composable(
@@ -52,7 +69,8 @@ fun AppNavigation(
                 navArgument(Screen.EditScreen.argument0) { type = NavType.IntType }
             )
         ) { navBackStackEntry ->
-            val bookId = navBackStackEntry.arguments?.getInt(Screen.EditScreen.argument0) ?: return@composable
+            val bookId = navBackStackEntry.arguments?.getInt(Screen.EditScreen.argument0)
+                ?: return@composable
             val editViewModel: EditViewModel = assistedViewModel {
                 EditViewModel.provideFactory(editViewModelFactory(), bookId)
             }
@@ -72,6 +90,11 @@ fun AppNavigation(
                 onUpdateBook = { book ->
                     editViewModel.updateBook(book)
                     navController.navigateUp()
+                    appScope.launch {
+                        scaffoldState.snackbarHostState.showSnackbar(
+                            context.getString(R.string.edit_screen_edit_snackbar, book.title)
+                        )
+                    }
                 }
             )
         }

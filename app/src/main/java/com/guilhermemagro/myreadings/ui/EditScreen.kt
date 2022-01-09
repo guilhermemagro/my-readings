@@ -110,11 +110,11 @@ fun EditScreen(
                         )
                     },
                     modifier = Modifier.weight(1f, true),
+                    enabled = allFieldsFilled,
                     colors = ButtonDefaults.buttonColors(
                         backgroundColor = Color(0xFF78D865),
                         contentColor = Color.White
-                    ),
-                    enabled = allFieldsFilled
+                    )
                 ) {
                     Icon(
                         Icons.Filled.Edit,
