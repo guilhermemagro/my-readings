@@ -10,9 +10,13 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Button
 import androidx.compose.material.Icon
+import androidx.compose.material.Scaffold
+import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,6 +29,33 @@ import com.guilhermemagro.myreadings.data.entities.BookAndRecords
 
 @Composable
 fun HomeScreen(
+    scaffoldState: ScaffoldState,
+    booksAndRecords: List<BookAndRecords>? = null,
+    onRegistrationClick: () -> Unit,
+    onBookCardClick: (Book) -> Unit
+) {
+    Scaffold(
+        scaffoldState = scaffoldState,
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(text = "MyReadings")
+                }
+            )
+        }
+    ) {
+        HomeScreenContent(
+            scaffoldState = scaffoldState,
+            booksAndRecords = booksAndRecords,
+            onRegistrationClick = onRegistrationClick,
+            onBookCardClick = onBookCardClick
+        )
+    }
+}
+
+@Composable
+fun HomeScreenContent(
+    scaffoldState: ScaffoldState,
     booksAndRecords: List<BookAndRecords>? = null,
     onRegistrationClick: () -> Unit,
     onBookCardClick: (Book) -> Unit
@@ -69,7 +100,8 @@ fun HomeScreen(
 @Preview(showBackground = true)
 @Composable
 fun BodyContentPreview() {
-    HomeScreen(
+    HomeScreenContent(
+        scaffoldState = rememberScaffoldState(),
         onRegistrationClick = {},
         onBookCardClick = {}
     )

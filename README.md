@@ -22,3 +22,4 @@
 - [Doc: Side-effects in Compose](https://developer.android.com/jetpack/compose/side-effects)
 - [Medium: Using LiveData & Flow in MVVM — Part I](https://proandroiddev.com/using-livedata-flow-in-mvvm-part-i-a98fe06077a0)
 - [Medium: Cold flows, hot channels](https://elizarov.medium.com/cold-flows-hot-channels-d74769805f9)
+- [Blog: Configuring Snackbar in Jetpack Compose when using Scaffold with Bottom Navigation](https://www.devbitsandbytes.com/configuring-snackbar-jetpack-compose-using-scaffold-with-bottom-navigation/)
