@@ -10,6 +10,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Text
@@ -17,6 +18,7 @@ import androidx.compose.material.TextField
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -41,6 +43,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun RegistrationScreen(
     scaffoldState: ScaffoldState,
+    onReturnButtonClick: () -> Unit,
     appCoroutineScope: CoroutineScope,
     onBookRegistration: (Book) -> Unit
 ) {
@@ -49,10 +52,18 @@ fun RegistrationScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Text(text = "Cadastrar livro")
+                    Text(text = stringResource(id = R.string.registration_screen_title))
+                },
+                navigationIcon = {
+                    IconButton(onClick = onReturnButtonClick) {
+                        Icon(
+                            imageVector = Icons.Filled.ArrowBack,
+                            contentDescription = stringResource(id = R.string.return_arrow)
+                        )
+                    }
                 }
             )
-        }
+        },
     ) {
         RegistrationScreenContent(
             scaffoldState = scaffoldState,

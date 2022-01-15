@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">MyReadings</string>
 
+    <!--  General  -->
+    <string name="return_arrow">Retornar</string>
+
     <!-- HomeScreen -->
     <string name="home_screen_title">MyReadings</string>
     <string name="home_screen_fab">Cadastrar livro</string>
@@ -9,7 +12,7 @@
     <string name="home_screen_pages_end">\u0020páginas</string>
 
     <!--  RegistrationScreen  -->
-    <string name="registration_screen_title">Título</string>
+    <string name="registration_screen_title">Cadastrar livro</string>
     <string name="registration_screen_total_pages">Total de páginas</string>
     <string name="registration_screen_current_page">Página atual</string>
     <string name="registration_screen_register">Cadastrar livro</string>
@@ -17,7 +20,7 @@
     <string name="registration_screen_registration_snackbar">Livro %1$s cadastrado com sucesso!</string>
 
     <!--  EditScreen  -->
-    <string name="edit_screen_title">Título</string>
+    <string name="edit_screen_title">Editar livro</string>
     <string name="edit_screen_total_pages">Total de páginas</string>
     <string name="edit_screen_current_page">Página atual</string>
     <string name="edit_screen_edit">Editar livro</string>

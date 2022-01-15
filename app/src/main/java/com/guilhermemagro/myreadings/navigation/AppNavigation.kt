@@ -46,6 +46,7 @@ fun AppNavigation() {
             val registrationViewModel: RegistrationViewModel = hiltViewModel()
             RegistrationScreen(
                 scaffoldState = scaffoldState,
+                onReturnButtonClick = { navController.navigateUp() },
                 appCoroutineScope = appCoroutineScope,
                 onBookRegistration = { book ->
                     registrationViewModel.insertBook(book)
@@ -69,6 +70,7 @@ fun AppNavigation() {
             EditScreen(
                 scaffoldState = scaffoldState,
                 appCoroutineScope = appCoroutineScope,
+                onReturnButtonClick = { navController.navigateUp() },
                 bookAndRecords = selectedBookAndRecords,
                 onDeleteBook = { book ->
                     editViewModel.deleteBook(book)

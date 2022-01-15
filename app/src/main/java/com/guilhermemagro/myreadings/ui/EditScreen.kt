@@ -11,12 +11,14 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.rememberScaffoldState
@@ -44,6 +46,7 @@ import kotlinx.coroutines.launch
 fun EditScreen(
     scaffoldState: ScaffoldState,
     appCoroutineScope: CoroutineScope,
+    onReturnButtonClick: () -> Unit,
     bookAndRecords: BookAndRecords? = null,
     onDeleteBook: (Book) -> Unit,
     onUpdateBook: (Book) -> Unit
@@ -53,7 +56,15 @@ fun EditScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Text(text = "Editar livro")
+                    Text(text = stringResource(id = R.string.edit_screen_title))
+                },
+                navigationIcon = {
+                    IconButton(onClick = onReturnButtonClick) {
+                        Icon(
+                            imageVector = Icons.Filled.ArrowBack,
+                            contentDescription = stringResource(id = R.string.return_arrow)
+                        )
+                    }
                 }
             )
         }
