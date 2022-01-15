@@ -2,7 +2,9 @@
     <string name="app_name">MyReadings</string>
 
     <!-- HomeScreen -->
-    <string name="home_screen_empty_books">Você não tem nenhum livro cadastrado!\nClique aqui para cadastrar! </string>
+    <string name="home_screen_title">MyReadings</string>
+    <string name="home_screen_fab">Cadastrar livro</string>
+    <string name="home_screen_empty_books">Você não tem nenhum livro cadastrado!</string>
     <string name="home_screen_pages_separation">\u0020de\u0020</string>
     <string name="home_screen_pages_end">\u0020páginas</string>
 
