@@ -1,12 +1,9 @@
 package com.guilhermemagro.myreadings.ui
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
@@ -14,7 +11,6 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Text
-import androidx.compose.material.TextField
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -31,12 +27,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.guilhermemagro.myreadings.R
 import com.guilhermemagro.myreadings.data.entities.Book
+import com.guilhermemagro.myreadings.ui.custom.BookDataFields
+import com.guilhermemagro.myreadings.utils.BookValidator
 import com.guilhermemagro.myreadings.utils.filterNumbers
+import com.guilhermemagro.myreadings.utils.trimStartAndEnd
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -80,64 +78,84 @@ fun RegistrationScreenContent(
     onBookRegistration: (Book) -> Unit
 ) {
     var titleTextState by remember { mutableStateOf("") }
-    var totalPagesTextState by remember { mutableStateOf("") }
     var currentPageTextState by remember { mutableStateOf("") }
+    var totalPagesTextState by remember { mutableStateOf("") }
+
+    var currentPageErrorMessage by remember { mutableStateOf("") }
+    var totalPagesErrorMessage by remember { mutableStateOf("") }
+
+    var hasError by remember { mutableStateOf(false) }
+
     val context = LocalContext.current
 
     val allFieldsFilled = titleTextState != "" &&
-        totalPagesTextState != "" &&
-        currentPageTextState != ""
+            currentPageTextState != "" &&
+            totalPagesTextState != ""
 
-    val padding = 16.dp
+    fun clearErrorMessages() {
+        currentPageErrorMessage = ""
+        totalPagesErrorMessage = ""
+    }
+
+    fun validateFields() {
+        if (BookValidator.isTotalPagesGreaterOrEqualsCurrentPage(
+                totalPages = totalPagesTextState.toInt(),
+                currentPage = currentPageTextState.toInt()
+            )) {
+            hasError = false
+        } else {
+            currentPageErrorMessage = context.getString(R.string.registration_screen_current_page_error)
+            totalPagesErrorMessage = context.getString(R.string.registration_screen_total_pages_error)
+            hasError = true
+        }
+    }
+
+    fun registerButtonAction() {
+        validateFields()
+        if (hasError) return
+        val title = titleTextState.trimStartAndEnd()
+        onBookRegistration(
+            Book(
+                title = title,
+                totalPages = totalPagesTextState.toInt(),
+                currentPage = currentPageTextState.toInt()
+            )
+        )
+        appCoroutineScope.launch {
+            scaffoldState.snackbarHostState.showSnackbar(
+                context.getString(R.string.registration_screen_registration_snackbar, title)
+            )
+        }
+        titleTextState = ""
+        totalPagesTextState = ""
+        currentPageTextState = ""
+    }
+
     Column(
-        modifier = Modifier.padding(padding),
-        verticalArrangement = Arrangement.spacedBy(padding)
+        modifier = Modifier.padding(16.dp)
     ) {
-        TextField(
-            modifier = Modifier.fillMaxWidth(),
-            value = titleTextState,
-            onValueChange = { titleTextState = it },
-            label = { Text(stringResource(R.string.registration_screen_title)) },
-            maxLines = 1
-        )
-        TextField(
-            modifier = Modifier.fillMaxWidth(),
-            value = currentPageTextState,
-            onValueChange = { currentPageTextState = it.filterNumbers() },
-            label = { Text(stringResource(R.string.registration_screen_current_page)) },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            maxLines = 1
-        )
-        TextField(
-            modifier = Modifier.fillMaxWidth(),
-            value = totalPagesTextState,
-            onValueChange = { totalPagesTextState = it.filterNumbers() },
-            label = { Text(stringResource(R.string.registration_screen_total_pages)) },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            maxLines = 1
+        BookDataFields(
+            titleValue = titleTextState,
+            currentPageValue = currentPageTextState,
+            totalPagesValue = totalPagesTextState,
+            currentPageErrorMessage = currentPageErrorMessage,
+            totalPagesErrorMessage = totalPagesErrorMessage,
+            onTitleValueChange = {
+                titleTextState = it
+                clearErrorMessages()
+            },
+            onCurrentPageValueChange = {
+                currentPageTextState = it.filterNumbers()
+                clearErrorMessages()
+            },
+            onTotalPagesValueChange = {
+                totalPagesTextState = it.filterNumbers()
+                clearErrorMessages()
+            }
         )
         Button(
             modifier = Modifier.align(Alignment.CenterHorizontally),
-            onClick = {
-                onBookRegistration(
-                    Book(
-                        title = titleTextState,
-                        totalPages = totalPagesTextState.toInt(),
-                        currentPage = currentPageTextState.toInt()
-                    )
-                )
-                appCoroutineScope.launch {
-                    scaffoldState.snackbarHostState.showSnackbar(
-                        context.getString(
-                            R.string.registration_screen_registration_snackbar,
-                            titleTextState
-                        )
-                    )
-                }
-                titleTextState = ""
-                totalPagesTextState = ""
-                currentPageTextState = ""
-            },
+            onClick = ::registerButtonAction,
             enabled = allFieldsFilled,
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = Color(0xFF78D865),
@@ -146,11 +164,11 @@ fun RegistrationScreenContent(
         ) {
             Icon(
                 Icons.Filled.Add,
-                contentDescription = stringResource(R.string.registration_screen_register_icon),
+                contentDescription = stringResource(R.string.registration_screen_register_button_icon),
                 modifier = Modifier.size(ButtonDefaults.IconSize)
             )
             Spacer(modifier = Modifier.size(ButtonDefaults.IconSpacing))
-            Text(stringResource(R.string.registration_screen_register))
+            Text(stringResource(R.string.registration_screen_register_button))
         }
     }
 }

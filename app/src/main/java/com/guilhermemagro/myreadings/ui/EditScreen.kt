@@ -39,6 +39,7 @@ import com.guilhermemagro.myreadings.R
 import com.guilhermemagro.myreadings.data.entities.Book
 import com.guilhermemagro.myreadings.data.entities.BookAndRecords
 import com.guilhermemagro.myreadings.utils.filterNumbers
+import com.guilhermemagro.myreadings.utils.trimStartAndEnd
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -108,7 +109,7 @@ fun EditScreenContent(
                 value = titleTextState,
                 onValueChange = { titleTextState = it },
                 label = { Text(stringResource(R.string.edit_screen_title)) },
-                maxLines = 1
+                singleLine = true
             )
             TextField(
                 modifier = Modifier.fillMaxWidth(),
@@ -116,7 +117,7 @@ fun EditScreenContent(
                 onValueChange = { currentPageTextState = it.filterNumbers() },
                 label = { Text(stringResource(R.string.edit_screen_current_page)) },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                maxLines = 1
+                singleLine = true
             )
             TextField(
                 modifier = Modifier.fillMaxWidth(),
@@ -124,7 +125,7 @@ fun EditScreenContent(
                 onValueChange = { totalPagesTextState = it.filterNumbers() },
                 label = { Text(stringResource(R.string.edit_screen_total_pages)) },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                maxLines = 1
+                singleLine = true
             )
             Row(
                 modifier = Modifier.fillMaxWidth()
@@ -158,7 +159,7 @@ fun EditScreenContent(
                         onUpdateBook(
                             Book(
                                 id = book.id,
-                                title = titleTextState,
+                                title = titleTextState.trimStartAndEnd(),
                                 totalPages = totalPagesTextState.toInt(),
                                 currentPage = currentPageTextState.toInt()
                             )

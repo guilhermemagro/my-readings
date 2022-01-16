@@ -10,14 +10,19 @@
     <string name="home_screen_empty_books">Você não tem nenhum livro cadastrado!</string>
     <string name="home_screen_pages_separation">\u0020de\u0020</string>
     <string name="home_screen_pages_end">\u0020páginas</string>
+    
+    <!--  BookDataFields  -->
+    <string name="book_data_fields_title">Nome do livro</string>
+    <string name="book_data_fields_current_page">Página atual</string>
+    <string name="book_data_fields_total_pages">Total de páginas</string>
 
     <!--  RegistrationScreen  -->
     <string name="registration_screen_title">Cadastrar livro</string>
-    <string name="registration_screen_total_pages">Total de páginas</string>
-    <string name="registration_screen_current_page">Página atual</string>
-    <string name="registration_screen_register">Cadastrar livro</string>
-    <string name="registration_screen_register_icon">Cadastrar</string>
+    <string name="registration_screen_register_button">Cadastrar livro</string>
+    <string name="registration_screen_register_button_icon">Cadastrar</string>
     <string name="registration_screen_registration_snackbar">Livro %1$s cadastrado com sucesso!</string>
+    <string name="registration_screen_current_page_error">Página atual não pode ser superior ao total de páginas!</string>
+    <string name="registration_screen_total_pages_error">Total de páginas não pode ser inferior à página atual!</string>
 
     <!--  EditScreen  -->
     <string name="edit_screen_title">Editar livro</string>
@@ -29,4 +34,6 @@
     <string name="edit_screen_delete_icon">Deletar</string>
     <string name="edit_screen_delete_snackbar">Livro %1$s deletado com sucesso!</string>
     <string name="edit_screen_edit_snackbar">Livro %1$s editado com sucesso!</string>
+    <string name="edit_screen_current_page_error">Página atual não pode ser superior ao total de páginas!</string>
+    <string name="edit_screen_total_pages_error">Total de páginas não pode ser inferior à página atual!</string>
 </resources>
