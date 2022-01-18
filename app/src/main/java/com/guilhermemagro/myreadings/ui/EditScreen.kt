@@ -1,13 +1,11 @@
 package com.guilhermemagro.myreadings.ui
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
@@ -15,7 +13,6 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Text
-import androidx.compose.material.TextField
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -32,12 +29,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.guilhermemagro.myreadings.R
 import com.guilhermemagro.myreadings.data.entities.Book
 import com.guilhermemagro.myreadings.data.entities.BookAndRecords
+import com.guilhermemagro.myreadings.ui.custom.BookDataFields
+import com.guilhermemagro.myreadings.utils.BookValidator
 import com.guilhermemagro.myreadings.utils.filterNumbers
 import com.guilhermemagro.myreadings.utils.trimStartAndEnd
 import kotlinx.coroutines.CoroutineScope
@@ -91,54 +89,93 @@ fun EditScreenContent(
     bookAndRecords?.let {
         val book = bookAndRecords.book.copy()
         var titleTextState by remember { mutableStateOf(book.title) }
-        var totalPagesTextState by remember { mutableStateOf(book.totalPages.toString()) }
         var currentPageTextState by remember { mutableStateOf(book.currentPage.toString()) }
+        var totalPagesTextState by remember { mutableStateOf(book.totalPages.toString()) }
+
+        var currentPageErrorMessage by remember { mutableStateOf("") }
+        var totalPagesErrorMessage by remember { mutableStateOf("") }
+
+        var hasError by remember { mutableStateOf(false) }
+
         val context = LocalContext.current
 
         val allFieldsFilled = titleTextState != "" &&
                 totalPagesTextState != "" &&
                 currentPageTextState != ""
 
-        val padding = 16.dp
+        fun clearErrorMessages() {
+            currentPageErrorMessage = ""
+            totalPagesErrorMessage = ""
+        }
+
+        fun deleteButtonAction() {
+            onDeleteBook(book)
+            appCoroutineScope.launch {
+                scaffoldState.snackbarHostState.showSnackbar(
+                    context.getString(R.string.edit_screen_delete_snackbar, book.title)
+                )
+            }
+        }
+
+        fun validateFields() {
+            if (BookValidator.isTotalPagesGreaterOrEqualsCurrentPage(
+                    totalPages = totalPagesTextState.toInt(),
+                    currentPage = currentPageTextState.toInt()
+                )
+            ) {
+                hasError = false
+            } else {
+                currentPageErrorMessage = context.getString(R.string.edit_screen_current_page_error)
+                totalPagesErrorMessage = context.getString(R.string.edit_screen_total_pages_error)
+                hasError = true
+            }
+        }
+
+        fun editButtonAction() {
+            validateFields()
+            if (hasError) return
+            onUpdateBook(
+                Book(
+                    id = book.id,
+                    title = titleTextState.trimStartAndEnd(),
+                    totalPages = totalPagesTextState.toInt(),
+                    currentPage = currentPageTextState.toInt()
+                )
+            )
+            appCoroutineScope.launch {
+                scaffoldState.snackbarHostState.showSnackbar(
+                    context.getString(R.string.edit_screen_edit_snackbar, book.title)
+                )
+            }
+        }
+
         Column(
-            modifier = Modifier.padding(padding),
-            verticalArrangement = Arrangement.spacedBy(padding)
+            modifier = Modifier.padding(16.dp)
         ) {
-            TextField(
-                modifier = Modifier.fillMaxWidth(),
-                value = titleTextState,
-                onValueChange = { titleTextState = it },
-                label = { Text(stringResource(R.string.edit_screen_title)) },
-                singleLine = true
-            )
-            TextField(
-                modifier = Modifier.fillMaxWidth(),
-                value = currentPageTextState,
-                onValueChange = { currentPageTextState = it.filterNumbers() },
-                label = { Text(stringResource(R.string.edit_screen_current_page)) },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                singleLine = true
-            )
-            TextField(
-                modifier = Modifier.fillMaxWidth(),
-                value = totalPagesTextState,
-                onValueChange = { totalPagesTextState = it.filterNumbers() },
-                label = { Text(stringResource(R.string.edit_screen_total_pages)) },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                singleLine = true
+            BookDataFields(
+                titleValue = titleTextState,
+                currentPageValue = currentPageTextState,
+                totalPagesValue = totalPagesTextState,
+                currentPageErrorMessage = currentPageErrorMessage,
+                totalPagesErrorMessage = totalPagesErrorMessage,
+                onTitleValueChange = {
+                    titleTextState = it
+                    clearErrorMessages()
+                },
+                onCurrentPageValueChange = {
+                    currentPageTextState = it.filterNumbers()
+                    clearErrorMessages()
+                },
+                onTotalPagesValueChange = {
+                    totalPagesTextState = it.filterNumbers()
+                    clearErrorMessages()
+                }
             )
             Row(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Button(
-                    onClick = {
-                        onDeleteBook(book)
-                        appCoroutineScope.launch {
-                            scaffoldState.snackbarHostState.showSnackbar(
-                                context.getString(R.string.edit_screen_delete_snackbar, book.title)
-                            )
-                        }
-                    },
+                    onClick = ::deleteButtonAction,
                     modifier = Modifier.weight(1f, true),
                     colors = ButtonDefaults.buttonColors(
                         backgroundColor = Color(0xFFEC532F),
@@ -153,23 +190,9 @@ fun EditScreenContent(
                     Spacer(modifier = Modifier.size(ButtonDefaults.IconSpacing))
                     Text(stringResource(R.string.edit_screen_delete))
                 }
-                Spacer(modifier = Modifier.size(padding))
+                Spacer(modifier = Modifier.size(16.dp))
                 Button(
-                    onClick = {
-                        onUpdateBook(
-                            Book(
-                                id = book.id,
-                                title = titleTextState.trimStartAndEnd(),
-                                totalPages = totalPagesTextState.toInt(),
-                                currentPage = currentPageTextState.toInt()
-                            )
-                        )
-                        appCoroutineScope.launch {
-                            scaffoldState.snackbarHostState.showSnackbar(
-                                context.getString(R.string.edit_screen_edit_snackbar, book.title)
-                            )
-                        }
-                    },
+                    onClick = ::editButtonAction,
                     modifier = Modifier.weight(1f, true),
                     enabled = allFieldsFilled,
                     colors = ButtonDefaults.buttonColors(
