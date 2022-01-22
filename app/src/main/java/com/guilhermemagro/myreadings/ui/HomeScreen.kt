@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.dp
 import com.guilhermemagro.myreadings.R
 import com.guilhermemagro.myreadings.data.entities.Book
 import com.guilhermemagro.myreadings.data.entities.BookAndRecords
-import com.guilhermemagro.myreadings.ui.custom.BookCard
+import com.guilhermemagro.myreadings.ui.components.BookCard
 import com.guilhermemagro.myreadings.utils.DEFAULT_FAB_SIZE
 
 @Composable
@@ -83,7 +83,11 @@ fun HomeScreenContent(
         ) {
             booksAndRecords?.takeIf { it.isNotEmpty() }?.let {
                 items(booksAndRecords) { bookAndRecords ->
-                    BookCard(book = bookAndRecords.book, onBookCardClick = onBookCardClick)
+                    BookCard(
+                        modifier = Modifier.fillMaxWidth(),
+                        book = bookAndRecords.book,
+                        onBookCardClick = onBookCardClick
+                    )
                 }
                 item {
                     Spacer(modifier = Modifier.height(DEFAULT_FAB_SIZE.dp))

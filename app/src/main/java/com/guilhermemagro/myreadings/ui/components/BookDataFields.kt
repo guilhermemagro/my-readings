@@ -1,4 +1,4 @@
-package com.guilhermemagro.myreadings.ui.custom
+package com.guilhermemagro.myreadings.ui.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
