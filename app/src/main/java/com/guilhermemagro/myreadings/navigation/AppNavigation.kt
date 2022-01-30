@@ -38,6 +38,12 @@ fun AppNavigation() {
                 onRegistrationClick = { navController.navigate(Screen.RegistrationScreen.route) },
                 onBookCardClick = { selectedBook ->
                     navController.navigate(Screen.EditScreen.route(selectedBook.id))
+                },
+                onIncreaseCurrentPageClick = { bookId ->
+                    homeViewModel.increaseCurrentPage(bookId)
+                },
+                onDecreaseCurrentPageClick = { bookId ->
+                    homeViewModel.decreaseCurrentPage(bookId)
                 }
             )
         }

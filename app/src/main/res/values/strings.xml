@@ -8,9 +8,15 @@
     <string name="home_screen_title">MyReadings</string>
     <string name="home_screen_fab">Cadastrar livro</string>
     <string name="home_screen_empty_books">Você não tem nenhum livro cadastrado!</string>
-    <string name="home_screen_pages_separation">\u0020de\u0020</string>
-    <string name="home_screen_pages_end">\u0020páginas</string>
-    
+
+    <!--  BookCard  -->
+    <string name="book_card_pages_separation">\u0020de\u0020</string>
+    <string name="book_card_pages_end">\u0020páginas</string>
+
+    <!--  UpdatePageComponent  -->
+    <string name="update_page_decrease_description">Diminuir página atual</string>
+    <string name="update_page_increase_description">Aumentar página atual</string>
+
     <!--  BookDataFields  -->
     <string name="book_data_fields_title">Nome do livro</string>
     <string name="book_data_fields_current_page">Página atual</string>

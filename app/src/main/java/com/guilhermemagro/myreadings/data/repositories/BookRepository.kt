@@ -10,11 +10,12 @@ interface BookRepository {
     fun getBookAndRecordsByBookId(bookId: Int): Flow<BookAndRecords>
 
     // BookDao
-//    fun setCurrentPage(currentPage: Int, bookId: Int)
 //    fun getAllBooks(): List<Book>
     suspend fun insertBook(book: Book)
     suspend fun deleteBook(book: Book)
     suspend fun updateBook(book: Book)
+    suspend fun increaseCurrentPage(bookId: Int)
+    suspend fun decreaseCurrentPage(bookId: Int)
 
     // RecordDao
 //    fun updateRecord(record: Record)

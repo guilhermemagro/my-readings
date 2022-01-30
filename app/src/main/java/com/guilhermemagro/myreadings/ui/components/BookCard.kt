@@ -14,6 +14,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -32,7 +33,9 @@ import java.util.*
 fun BookCard(
     modifier: Modifier = Modifier,
     book: Book,
-    onBookCardClick: (Book) -> Unit
+    onBookCardClick: (Book) -> Unit = {},
+    onIncreaseCurrentPageClick: (Int) -> Unit = {},
+    onDecreaseCurrentPageClick: (Int) -> Unit = {}
 ) {
     var progress = book.currentPage.toFloat() / book.totalPages.toFloat()
     if (progress > 1.0) progress = 1.0F
@@ -51,34 +54,37 @@ fun BookCard(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
+                Text(
+                    text = book.title.uppercase(Locale.getDefault()),
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold
+                )
                 Column(
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                    horizontalAlignment = Alignment.End,
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    Text(
-                        text = book.title.uppercase(Locale.getDefault()),
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold
+                    IconButton(
+                        onClick = { onBookCardClick(book) }
+                    ) {
+                        Icon(
+                            Icons.Default.Edit,
+                            contentDescription = "Editar"
+                        )
+                    }
+                    UpdatePageComponent(
+                        currentPage = book.currentPage,
+                        onIncreasePageClick = { onIncreaseCurrentPageClick(book.id) },
+                        onDecreasePageClick = { onDecreaseCurrentPageClick(book.id) }
                     )
                     Text(
                         text =
                         buildAnnotatedString {
-                            withStyle(style = SpanStyle(fontWeight = FontWeight.SemiBold)) {
-                                append(book.currentPage.toString())
-                            }
-                            append(stringResource(R.string.home_screen_pages_separation))
+                            append(stringResource(R.string.book_card_pages_separation))
                             withStyle(style = SpanStyle(fontWeight = FontWeight.SemiBold)) {
                                 append(book.totalPages.toString())
                             }
-                            append(stringResource(R.string.home_screen_pages_end))
+                            append(stringResource(R.string.book_card_pages_end))
                         }
-                    )
-                }
-                IconButton(
-                    onClick = { onBookCardClick(book) }
-                ) {
-                    Icon(
-                        Icons.Default.Edit,
-                        contentDescription = "Editar"
                     )
                 }
             }
@@ -99,7 +105,6 @@ fun BookCardPreview() {
             title = "O Senhor dos Anéis",
             totalPages = 300,
             initialCurrentPage = 100
-        ),
-        onBookCardClick = {}
+        )
     )
 }

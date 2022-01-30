@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 
 class BookRepositoryImpl @Inject constructor(
     private val bookDao: BookDao,
-    private val recordDao: RecordDao,
+//    private val recordDao: RecordDao,
     private val bookAndRecordsDao: BookAndRecordsDao
 ) : BookRepository {
 
@@ -30,5 +30,13 @@ class BookRepositoryImpl @Inject constructor(
 
     override suspend fun updateBook(book: Book) {
         bookDao.update(book)
+    }
+
+    override suspend fun increaseCurrentPage(bookId: Int) {
+        bookDao.incrementCurrentPage(bookId)
+    }
+
+    override suspend fun decreaseCurrentPage(bookId: Int) {
+        bookDao.decreaseCurrentPage(bookId)
     }
 }

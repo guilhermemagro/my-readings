@@ -37,7 +37,9 @@ fun HomeScreen(
     scaffoldState: ScaffoldState,
     booksAndRecords: List<BookAndRecords>? = null,
     onRegistrationClick: () -> Unit,
-    onBookCardClick: (Book) -> Unit
+    onBookCardClick: (Book) -> Unit,
+    onIncreaseCurrentPageClick: (Int) -> Unit,
+    onDecreaseCurrentPageClick: (Int) -> Unit
 ) {
     Scaffold(
         scaffoldState = scaffoldState,
@@ -57,7 +59,9 @@ fun HomeScreen(
         HomeScreenContent(
             scaffoldState = scaffoldState,
             booksAndRecords = booksAndRecords,
-            onBookCardClick = onBookCardClick
+            onBookCardClick = onBookCardClick,
+            onIncreaseCurrentPageClick = onIncreaseCurrentPageClick,
+            onDecreaseCurrentPageClick = onDecreaseCurrentPageClick
         )
     }
 }
@@ -66,7 +70,9 @@ fun HomeScreen(
 fun HomeScreenContent(
     scaffoldState: ScaffoldState,
     booksAndRecords: List<BookAndRecords>? = null,
-    onBookCardClick: (Book) -> Unit
+    onBookCardClick: (Book) -> Unit = {},
+    onIncreaseCurrentPageClick: (Int) -> Unit = {},
+    onDecreaseCurrentPageClick: (Int) -> Unit = {}
 ) {
     val scrollState = rememberLazyListState()
 
@@ -86,7 +92,9 @@ fun HomeScreenContent(
                     BookCard(
                         modifier = Modifier.fillMaxWidth(),
                         book = bookAndRecords.book,
-                        onBookCardClick = onBookCardClick
+                        onBookCardClick = onBookCardClick,
+                        onIncreaseCurrentPageClick = onIncreaseCurrentPageClick,
+                        onDecreaseCurrentPageClick = onDecreaseCurrentPageClick
                     )
                 }
                 item {
@@ -111,7 +119,6 @@ fun HomeScreenContent(
 @Composable
 fun BodyContentPreview() {
     HomeScreenContent(
-        scaffoldState = rememberScaffoldState(),
-        onBookCardClick = {}
+        scaffoldState = rememberScaffoldState()
     )
 }

@@ -11,11 +11,8 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface BookDao {
-    @Query("UPDATE book SET current_page = :currentPage WHERE id = :bookId")
-    suspend fun setCurrentPage(currentPage: Int, bookId: Int)
-
-    @Query("SELECT * FROM book")
-    fun getAll(): Flow<List<Book>>
+//    @Query("SELECT * FROM book")
+//    fun getAll(): Flow<List<Book>>
 
     @Insert
     suspend fun insert(book: Book)
@@ -25,4 +22,10 @@ interface BookDao {
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun update(book: Book)
+
+    @Query("UPDATE book SET current_page = current_page + 1 WHERE id = :bookId")
+    suspend fun incrementCurrentPage(bookId: Int)
+
+    @Query("UPDATE book SET current_page = current_page - 1 WHERE id = :bookId")
+    suspend fun decreaseCurrentPage(bookId: Int)
 }
