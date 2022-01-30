@@ -139,7 +139,7 @@ fun EditScreenContent(
                     id = book.id,
                     title = titleTextState.trimStartAndEnd(),
                     totalPages = totalPagesTextState.toInt(),
-                    currentPage = currentPageTextState.toInt()
+                    initialCurrentPage = currentPageTextState.toInt()
                 )
             )
             appCoroutineScope.launch {
@@ -225,7 +225,7 @@ fun EditScreenPreview() {
             book = Book(
                 title = "Título livro",
                 totalPages = 300,
-                currentPage = 100
+                initialCurrentPage = 100
             ),
             records = listOf()
         ),

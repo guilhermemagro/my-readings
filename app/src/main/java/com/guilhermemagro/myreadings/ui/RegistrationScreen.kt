@@ -118,7 +118,7 @@ fun RegistrationScreenContent(
             Book(
                 title = title,
                 totalPages = totalPagesTextState.toInt(),
-                currentPage = currentPageTextState.toInt()
+                initialCurrentPage = currentPageTextState.toInt()
             )
         )
         appCoroutineScope.launch {

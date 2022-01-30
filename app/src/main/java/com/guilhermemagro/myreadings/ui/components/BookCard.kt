@@ -98,7 +98,7 @@ fun BookCardPreview() {
         book = Book(
             title = "O Senhor dos Anéis",
             totalPages = 300,
-            currentPage = 100
+            initialCurrentPage = 100
         ),
         onBookCardClick = {}
     )

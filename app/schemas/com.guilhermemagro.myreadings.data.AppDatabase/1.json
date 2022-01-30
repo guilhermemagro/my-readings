@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "135f809d29316dc20992f88c3114292e",
+    "identityHash": "0b5e9eb98109b6fab200a714cbaef0f7",
     "entities": [
       {
         "tableName": "Book",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `total_pages` INTEGER NOT NULL, `current_page` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `total_pages` INTEGER NOT NULL, `initial_current_page` INTEGER NOT NULL, `current_page` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -23,6 +23,12 @@
           {
             "fieldPath": "totalPages",
             "columnName": "total_pages",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "initialCurrentPage",
+            "columnName": "initial_current_page",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -84,6 +90,7 @@
             "columnNames": [
               "bookId"
             ],
+            "orders": [],
             "createSql": "CREATE INDEX IF NOT EXISTS `index_Record_bookId` ON `${TABLE_NAME}` (`bookId`)"
           }
         ],
@@ -105,7 +112,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '135f809d29316dc20992f88c3114292e')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0b5e9eb98109b6fab200a714cbaef0f7')"
     ]
   }
 }
