@@ -9,7 +9,6 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.guilhermemagro.myreadings.utils.visibleIf
@@ -42,7 +41,7 @@ fun CommonTextField(
             text = errorMessage,
             modifier = Modifier
                 .padding(vertical = 2.dp, horizontal = 16.dp)
-                .alpha(visibleIf(hasError)),
+                .visibleIf(hasError),
             color = MaterialTheme.colors.error,
             style = MaterialTheme.typography.caption
         )

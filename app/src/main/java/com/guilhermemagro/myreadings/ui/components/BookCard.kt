@@ -73,6 +73,7 @@ fun BookCard(
                     }
                     UpdatePageComponent(
                         currentPage = book.currentPage,
+                        upperLimit = book.totalPages,
                         onIncreasePageClick = { onIncreaseCurrentPageClick(book.id) },
                         onDecreasePageClick = { onDecreaseCurrentPageClick(book.id) }
                     )
