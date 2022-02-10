@@ -1,7 +1,7 @@
 plugins {
-    id 'kotlin-kapt'
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
 }
 
@@ -50,6 +50,9 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
+    composeOptions {
+        kotlinCompilerExtensionVersion = composeCompilerVersion
+    }
 }
 
 dependencies {
@@ -67,6 +70,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$composeVersion"
     debugImplementation "androidx.compose.ui:ui-tooling:$composeVersion"
+    implementation"androidx.compose.compiler:compiler:$composeCompilerVersion"
 
     // Room
     implementation("androidx.room:room-runtime:$roomVersion")

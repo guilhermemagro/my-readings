@@ -23,3 +23,5 @@
 - [Medium: Using LiveData & Flow in MVVM — Part I](https://proandroiddev.com/using-livedata-flow-in-mvvm-part-i-a98fe06077a0)
 - [Medium: Cold flows, hot channels](https://elizarov.medium.com/cold-flows-hot-channels-d74769805f9)
 - [Blog: Configuring Snackbar in Jetpack Compose when using Scaffold with Bottom Navigation](https://www.devbitsandbytes.com/configuring-snackbar-jetpack-compose-using-scaffold-with-bottom-navigation/)
+- [Medium: Room + Time](https://medium.com/androiddevelopers/room-time-2b4cf9672b98)
+- [Stackoverflow: Comparing a date in a Room database](https://stackoverflow.com/a/62783804/11407290)
