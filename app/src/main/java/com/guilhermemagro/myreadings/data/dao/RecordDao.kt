@@ -10,11 +10,11 @@ import com.guilhermemagro.myreadings.data.entities.Record
 
 @Dao
 interface RecordDao {
-    @Query("UPDATE record SET pages_read = pages_read + 1 WHERE id = :recordId AND date = :date")
-    suspend fun incrementRecordPages(bookId: Int, date: String)
+    @Query("UPDATE record SET pages_read = pages_read + 1 WHERE id = :recordId")
+    suspend fun increaseRecordPages(recordId: Int)
 
-    @Query("UPDATE record SET pages_read = pages_read - 1 WHERE id = :recordId AND date = :date")
-    suspend fun decreaseRecordPages(bookId: Int, date: String)
+    @Query("UPDATE record SET pages_read = pages_read - 1 WHERE id = :recordId")
+    suspend fun decreaseRecordPages(recordId: Int)
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun update(record: Record)

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "8c0169e4a2b6ebdbd437457ae2369ed6",
+    "identityHash": "58ab9a79ec2429466ac0d0944d6eec69",
     "entities": [
       {
         "tableName": "Book",
@@ -56,7 +56,7 @@
       },
       {
         "tableName": "Record",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `bookId` INTEGER NOT NULL, `date` TEXT NOT NULL, `pages_read` INTEGER NOT NULL, FOREIGN KEY(`bookId`) REFERENCES `Book`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `book_id` INTEGER NOT NULL, `date` TEXT NOT NULL, `pages_read` INTEGER NOT NULL, FOREIGN KEY(`book_id`) REFERENCES `Book`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "id",
@@ -66,7 +66,7 @@
           },
           {
             "fieldPath": "bookId",
-            "columnName": "bookId",
+            "columnName": "book_id",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -91,13 +91,13 @@
         },
         "indices": [
           {
-            "name": "index_Record_bookId",
+            "name": "index_Record_book_id",
             "unique": false,
             "columnNames": [
-              "bookId"
+              "book_id"
             ],
             "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_Record_bookId` ON `${TABLE_NAME}` (`bookId`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Record_book_id` ON `${TABLE_NAME}` (`book_id`)"
           }
         ],
         "foreignKeys": [
@@ -106,7 +106,7 @@
             "onDelete": "NO ACTION",
             "onUpdate": "NO ACTION",
             "columns": [
-              "bookId"
+              "book_id"
             ],
             "referencedColumns": [
               "id"
@@ -118,7 +118,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8c0169e4a2b6ebdbd437457ae2369ed6')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '58ab9a79ec2429466ac0d0944d6eec69')"
     ]
   }
 }

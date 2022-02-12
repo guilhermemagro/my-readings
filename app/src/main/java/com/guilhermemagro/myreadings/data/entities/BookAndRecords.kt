@@ -5,5 +5,5 @@ import androidx.room.Relation
 
 data class BookAndRecords(
     @Embedded val book: Book,
-    @Relation(parentColumn = "id", entityColumn = "bookId") val records: List<Record>
+    @Relation(parentColumn = "id", entityColumn = "book_id") val records: List<Record>
 )

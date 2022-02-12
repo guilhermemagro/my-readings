@@ -13,8 +13,8 @@ import androidx.room.PrimaryKey
     )]
 )
 data class Record (
-    @PrimaryKey(autoGenerate = true) val id: Int,
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
     @ColumnInfo(index = true, name = "book_id") val bookId: Int,
     val date: String,
-    @ColumnInfo(name = "pages_read") val pagesRead: Int,
+    @ColumnInfo(name = "pages_read") val pagesRead: Int = 1,
 )
