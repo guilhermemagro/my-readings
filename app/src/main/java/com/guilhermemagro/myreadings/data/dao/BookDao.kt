@@ -7,13 +7,9 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.guilhermemagro.myreadings.data.entities.Book
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface BookDao {
-//    @Query("SELECT * FROM book")
-//    fun getAll(): Flow<List<Book>>
-
     @Insert
     suspend fun insert(book: Book)
 

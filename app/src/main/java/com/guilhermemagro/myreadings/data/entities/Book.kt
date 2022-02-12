@@ -10,5 +10,6 @@ data class Book (
     val title: String,
     @ColumnInfo(name = "total_pages") val totalPages: Int,
     @ColumnInfo(name = "initial_current_page") val initialCurrentPage: Int,
-    @ColumnInfo(name = "current_page") val currentPage: Int = initialCurrentPage
+    @ColumnInfo(name = "current_page") val currentPage: Int = initialCurrentPage,
+    @ColumnInfo(name = "registration_date") val registrationDate: String
 )

@@ -105,7 +105,8 @@ fun BookCardPreview() {
         book = Book(
             title = "O Senhor dos Anéis",
             totalPages = 300,
-            initialCurrentPage = 100
+            initialCurrentPage = 100,
+            registrationDate = "2022-02-12"
         )
     )
 }

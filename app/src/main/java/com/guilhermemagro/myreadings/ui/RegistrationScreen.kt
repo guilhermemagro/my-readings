@@ -33,6 +33,7 @@ import com.guilhermemagro.myreadings.R
 import com.guilhermemagro.myreadings.data.entities.Book
 import com.guilhermemagro.myreadings.ui.components.BookDataFields
 import com.guilhermemagro.myreadings.utils.BookValidator
+import com.guilhermemagro.myreadings.utils.DateHelper
 import com.guilhermemagro.myreadings.utils.filterNumbers
 import com.guilhermemagro.myreadings.utils.trimStartAndEnd
 import kotlinx.coroutines.CoroutineScope
@@ -118,7 +119,8 @@ fun RegistrationScreenContent(
             Book(
                 title = title,
                 totalPages = totalPagesTextState.toInt(),
-                initialCurrentPage = currentPageTextState.toInt()
+                initialCurrentPage = currentPageTextState.toInt(),
+                registrationDate = DateHelper.getLocalDate()
             )
         )
         appCoroutineScope.launch {

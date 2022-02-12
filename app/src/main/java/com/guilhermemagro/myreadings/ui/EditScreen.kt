@@ -135,11 +135,10 @@ fun EditScreenContent(
             validateFields()
             if (hasError) return
             onUpdateBook(
-                Book(
-                    id = book.id,
+                book.copy(
                     title = titleTextState.trimStartAndEnd(),
                     totalPages = totalPagesTextState.toInt(),
-                    initialCurrentPage = currentPageTextState.toInt()
+                    initialCurrentPage = currentPageTextState.toInt(),
                 )
             )
             appCoroutineScope.launch {
@@ -225,7 +224,8 @@ fun EditScreenPreview() {
             book = Book(
                 title = "Título livro",
                 totalPages = 300,
-                initialCurrentPage = 100
+                initialCurrentPage = 100,
+                registrationDate = "2022-02-12"
             ),
             records = listOf()
         ),
