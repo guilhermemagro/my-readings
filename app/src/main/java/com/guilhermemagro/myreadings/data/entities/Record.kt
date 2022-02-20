@@ -3,10 +3,12 @@ package com.guilhermemagro.myreadings.data.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.ForeignKey.CASCADE
 import androidx.room.PrimaryKey
 
 @Entity(
     foreignKeys = [ForeignKey(
+        onDelete = CASCADE,
         entity = Book::class,
         parentColumns = arrayOf("id"),
         childColumns = arrayOf("book_id")
