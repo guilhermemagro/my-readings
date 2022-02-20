@@ -27,16 +27,21 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.guilhermemagro.myreadings.R
 import com.guilhermemagro.myreadings.data.entities.Book
+import com.guilhermemagro.myreadings.data.entities.BookAndRecords
+import com.guilhermemagro.myreadings.data.entities.Record
 import java.util.*
 
 @Composable
 fun BookCard(
     modifier: Modifier = Modifier,
-    book: Book,
+    bookAndRecords: BookAndRecords,
     onBookCardClick: (Book) -> Unit = {},
     onIncreaseCurrentPageClick: (Int) -> Unit = {},
     onDecreaseCurrentPageClick: (Int) -> Unit = {}
 ) {
+    val book = bookAndRecords.book
+    val records = bookAndRecords.records
+
     var progress = book.currentPage.toFloat() / book.totalPages.toFloat()
     if (progress > 1.0) progress = 1.0F
 
@@ -80,6 +85,9 @@ fun BookCard(
                     Text(
                         text =
                         buildAnnotatedString {
+                            withStyle(style = SpanStyle(fontWeight = FontWeight.SemiBold)) {
+                                append(book.currentPage.toString())
+                            }
                             append(stringResource(R.string.book_card_pages_separation))
                             withStyle(style = SpanStyle(fontWeight = FontWeight.SemiBold)) {
                                 append(book.totalPages.toString())
@@ -102,11 +110,20 @@ fun BookCard(
 @Composable
 fun BookCardPreview() {
     BookCard(
-        book = Book(
-            title = "O Senhor dos Anéis",
-            totalPages = 300,
-            initialCurrentPage = 100,
-            registrationDate = "2022-02-12"
+        bookAndRecords = BookAndRecords(
+            book = Book(
+                title = "O Senhor dos Anéis",
+                totalPages = 300,
+                initialCurrentPage = 100,
+                registrationDate = "2022-02-12"
+            ),
+            records = listOf(
+                Record(
+                    bookId = 1,
+                    date = "2022-02-19",
+                    pagesRead = 10
+                )
+            )
         )
     )
 }

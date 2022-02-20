@@ -40,10 +40,10 @@ fun AppNavigation() {
                     navController.navigate(Screen.EditScreen.route(selectedBook.id))
                 },
                 onIncreaseCurrentPageClick = { bookId ->
-                    homeViewModel.increaseCurrentPage(bookId)
+                    homeViewModel.increaseTodayCurrentPage(bookId)
                 },
                 onDecreaseCurrentPageClick = { bookId ->
-                    homeViewModel.decreaseCurrentPage(bookId)
+                    homeViewModel.decreaseTodayCurrentPage(bookId)
                 }
             )
         }

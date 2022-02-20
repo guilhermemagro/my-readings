@@ -91,7 +91,7 @@ fun HomeScreenContent(
                 items(booksAndRecords) { bookAndRecords ->
                     BookCard(
                         modifier = Modifier.fillMaxWidth(),
-                        book = bookAndRecords.book,
+                        bookAndRecords = bookAndRecords,
                         onBookCardClick = onBookCardClick,
                         onIncreaseCurrentPageClick = onIncreaseCurrentPageClick,
                         onDecreaseCurrentPageClick = onDecreaseCurrentPageClick

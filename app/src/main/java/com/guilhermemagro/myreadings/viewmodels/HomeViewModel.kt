@@ -8,6 +8,7 @@ import com.guilhermemagro.myreadings.data.entities.BookAndRecords
 import com.guilhermemagro.myreadings.data.entities.Record
 import com.guilhermemagro.myreadings.data.repositories.BookRepository
 import com.guilhermemagro.myreadings.utils.DateHelper
+import com.guilhermemagro.myreadings.utils.ZERO_PAGES_READ
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
@@ -15,15 +16,15 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val bookRepository: BookRepository
-): ViewModel() {
+) : ViewModel() {
 
     val booksAndRecords: LiveData<List<BookAndRecords>> =
         bookRepository.getAllBooksAndRecords().asLiveData()
 
-    fun increaseCurrentPage(bookId: Int) {
+    fun increaseTodayCurrentPage(bookId: Int) {
         viewModelScope.launch {
             bookRepository.increaseCurrentPage(bookId)
-            bookId.getTodayRecordIfExist()?.let { record ->
+            bookId.getTodayRecordIfExists()?.let { record ->
                 bookRepository.increaseRecordPages(record.id)
             } ?: run {
                 bookRepository.insertRecord(
@@ -36,17 +37,20 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun Int.getTodayRecordIfExist() : Record? {
+    private fun Int.getTodayRecordIfExists(): Record? {
         return booksAndRecords.value
-            ?.flatMap { bookAndRecords -> bookAndRecords.records }
-            ?.firstOrNull { record ->
-                record.bookId == this && record.date == DateHelper.getLocalDate()
-            }
+            ?.firstOrNull { it.book.id == this }
+            ?.getTodayRecordIfExists()
     }
 
-    fun decreaseCurrentPage(bookId: Int) {
+    fun decreaseTodayCurrentPage(bookId: Int) {
         viewModelScope.launch {
-            bookRepository.decreaseCurrentPage(bookId)
+            bookId.getTodayRecordIfExists()
+                ?.takeIf { record -> record.pagesRead > ZERO_PAGES_READ }
+                ?.let { record ->
+                    bookRepository.decreaseCurrentPage(bookId)
+                    bookRepository.decreaseRecordPages(record.id)
+                }
         }
     }
 }
