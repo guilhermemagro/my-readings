@@ -60,7 +60,7 @@ fun BookCard(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = book.title.uppercase(Locale.getDefault()),
+                    text = book.title.uppercase(Locale("pt","BR")),
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
                 )

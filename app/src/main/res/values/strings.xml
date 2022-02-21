@@ -32,8 +32,6 @@
 
     <!--  EditScreen  -->
     <string name="edit_screen_title">Editar livro</string>
-    <string name="edit_screen_total_pages">Total de páginas</string>
-    <string name="edit_screen_current_page">Página atual</string>
     <string name="edit_screen_edit">Editar livro</string>
     <string name="edit_screen_edit_icon">Editar</string>
     <string name="edit_screen_delete">Deletar livro</string>
