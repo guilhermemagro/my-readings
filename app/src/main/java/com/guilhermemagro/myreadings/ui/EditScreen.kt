@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import com.guilhermemagro.myreadings.R
 import com.guilhermemagro.myreadings.data.entities.Book
 import com.guilhermemagro.myreadings.data.entities.BookAndRecords
+import com.guilhermemagro.myreadings.data.wrappers.DateWrapper
 import com.guilhermemagro.myreadings.ui.components.BookDataFields
 import com.guilhermemagro.myreadings.utils.BookValidator
 import com.guilhermemagro.myreadings.utils.filterNumbers
@@ -225,7 +226,7 @@ fun EditScreenPreview() {
                 title = "Título livro",
                 totalPages = 300,
                 initialCurrentPage = 100,
-                registrationDate = "2022-02-12"
+                registrationDate = DateWrapper.from("2022-02-12")
             ),
             records = listOf()
         ),

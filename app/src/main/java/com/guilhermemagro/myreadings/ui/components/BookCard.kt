@@ -29,6 +29,7 @@ import com.guilhermemagro.myreadings.R
 import com.guilhermemagro.myreadings.data.entities.Book
 import com.guilhermemagro.myreadings.data.entities.BookAndRecords
 import com.guilhermemagro.myreadings.data.entities.Record
+import com.guilhermemagro.myreadings.data.wrappers.DateWrapper
 import java.util.*
 
 @Composable
@@ -115,12 +116,12 @@ fun BookCardPreview() {
                 title = "O Senhor dos Anéis",
                 totalPages = 300,
                 initialCurrentPage = 100,
-                registrationDate = "2022-02-12"
+                registrationDate = DateWrapper.from("2022-02-12")
             ),
             records = listOf(
                 Record(
                     bookId = 1,
-                    date = "2022-02-19",
+                    date = DateWrapper.from("2022-02-19"),
                     pagesRead = 10
                 )
             )

@@ -9,28 +9,57 @@ class DateWrapper private constructor() {
 
     private lateinit var localDate: LocalDate
 
+    /**
+     * @return a date in the ISO-8601 calendar system, such as "2007-12-03"
+     */
     fun getDate(): String {
         return localDate.toString()
     }
 
+    /**
+     * @return the three initial letters of the day, such as "QUI"
+     */
     fun getDay(): String {
-        return localDate.dayOfWeek.getDisplayName(TextStyle.SHORT, Locale("pt", "BR"))
+        val locale = Locale("pt", "BR")
+        return localDate.dayOfWeek.getDisplayName(TextStyle.SHORT, locale).uppercase(locale)
     }
 
+    /**
+     * @return the day and month numbers, such as "24/02"
+     */
     fun getDayAndMonthDDMM(): String {
         val formatter = DateTimeFormatter.ofPattern("dd/MM")
         return localDate.format(formatter)
     }
 
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+        other as DateWrapper
+        if (localDate != other.localDate) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return localDate.hashCode()
+    }
+
     companion object {
-        fun new(): DateWrapper {
+        /**
+         * @return a [DateWrapper] with the date from now
+         */
+        fun now(): DateWrapper {
             val dateWrapper = DateWrapper().apply {
                 localDate = LocalDate.now()
             }
             return dateWrapper
         }
 
-        fun newFrom(dateAsString: String): DateWrapper {
+        /**
+         * @param dateAsString date in the ISO-8601 calendar system, such as "2007-12-03"
+         * @return a [DateWrapper] with the date from [dateAsString]
+         */
+        fun from(dateAsString: String): DateWrapper {
             val date = LocalDate.parse(dateAsString)
             val dateWrapper = DateWrapper().apply {
                 localDate = date

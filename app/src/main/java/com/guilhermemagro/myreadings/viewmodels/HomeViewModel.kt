@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.guilhermemagro.myreadings.data.entities.BookAndRecords
 import com.guilhermemagro.myreadings.data.entities.Record
 import com.guilhermemagro.myreadings.data.repositories.BookRepository
-import com.guilhermemagro.myreadings.utils.DateHelper
+import com.guilhermemagro.myreadings.data.wrappers.DateWrapper
 import com.guilhermemagro.myreadings.utils.ZERO_PAGES_READ
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -30,7 +30,7 @@ class HomeViewModel @Inject constructor(
                 bookRepository.insertRecord(
                     Record(
                         bookId = bookId,
-                        date = DateHelper.getLocalDate()
+                        date = DateWrapper.now()
                     )
                 )
             }
