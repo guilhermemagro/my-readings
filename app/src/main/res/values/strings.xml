@@ -16,6 +16,7 @@
     <!--  UpdatePageComponent  -->
     <string name="update_page_decrease_description">Diminuir página atual</string>
     <string name="update_page_increase_description">Aumentar página atual</string>
+    <string name="update_page_today">HOJE</string>
 
     <!--  BookDataFields  -->
     <string name="book_data_fields_title">Nome do livro</string>

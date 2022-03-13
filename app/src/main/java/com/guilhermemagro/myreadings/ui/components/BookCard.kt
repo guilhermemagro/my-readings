@@ -24,14 +24,12 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.guilhermemagro.myreadings.R
 import com.guilhermemagro.myreadings.data.entities.Book
 import com.guilhermemagro.myreadings.data.entities.BookAndRecords
 import com.guilhermemagro.myreadings.data.entities.Record
 import com.guilhermemagro.myreadings.data.wrappers.DateWrapper
-import java.util.*
+import java.util.Locale
 
 @Composable
 fun BookCard(
@@ -42,7 +40,6 @@ fun BookCard(
     onDecreaseCurrentPageClick: (Int) -> Unit = {}
 ) {
     val book = bookAndRecords.book
-    val records = bookAndRecords.records
 
     var progress = book.currentPage.toFloat() / book.totalPages.toFloat()
     if (progress > 1.0) progress = 1.0F
@@ -66,8 +63,7 @@ fun BookCard(
             ) {
                 Text(
                     text = book.title.uppercase(Locale("pt","BR")),
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold
+                    style = MaterialTheme.typography.h6
                 )
                 Column(
                     horizontalAlignment = Alignment.End,
@@ -81,12 +77,6 @@ fun BookCard(
                             contentDescription = "Editar"
                         )
                     }
-                    UpdatePageComponent(
-                        currentPage = book.currentPage,
-                        upperLimit = book.totalPages,
-                        onIncreasePageClick = { onIncreaseCurrentPageClick(book.id) },
-                        onDecreasePageClick = { onDecreaseCurrentPageClick(book.id) }
-                    )
                     Text(
                         text =
                         buildAnnotatedString {
@@ -106,6 +96,12 @@ fun BookCard(
                 progress = progress,
                 modifier = Modifier.fillMaxWidth(),
                 color = progressColor
+            )
+            PagesReadRow(
+                modifier = Modifier.fillMaxWidth(),
+                bookAndRecords = bookAndRecords,
+                onIncreaseCurrentPageClick = { onIncreaseCurrentPageClick(book.id) },
+                onDecreaseCurrentPageClick = { onDecreaseCurrentPageClick(book.id) }
             )
         }
     }

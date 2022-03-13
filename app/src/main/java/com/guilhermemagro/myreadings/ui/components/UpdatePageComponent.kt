@@ -1,8 +1,10 @@
 package com.guilhermemagro.myreadings.ui.components
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -27,7 +29,7 @@ fun UpdatePageComponent(
 
     Row(
         modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.Top
     ) {
         IconButton(
             onClick = onDecreasePageClick,
@@ -38,10 +40,19 @@ fun UpdatePageComponent(
                 contentDescription = stringResource(id = R.string.update_page_decrease_description)
             )
         }
-        Text(
-            text = currentPage.toString(),
-            fontWeight = FontWeight.Bold
-        )
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = stringResource(id = R.string.update_page_today),
+                fontWeight = FontWeight.Medium,
+                style = MaterialTheme.typography.caption
+            )
+            Text(
+                text = currentPage.toString(),
+                fontWeight = FontWeight.Bold
+            )
+        }
         IconButton(
             onClick = onIncreasePageClick,
             enabled = increasePageEnabled

@@ -32,6 +32,15 @@ class DateWrapper private constructor() {
         return localDate.format(formatter)
     }
 
+    /**
+     * @return a new [DateWrapper] with the result date from subtracting the [daysToSubtract] from
+     * the date of this [DateWrapper]
+     */
+    fun minusDays(daysToSubtract: Long): DateWrapper {
+        val localDateResult = localDate.minusDays(daysToSubtract)
+        return DateWrapper.from(localDateResult)
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -42,6 +51,10 @@ class DateWrapper private constructor() {
 
     override fun hashCode(): Int {
         return localDate.hashCode()
+    }
+
+    override fun toString(): String {
+        return getDate()
     }
 
     companion object {
@@ -65,6 +78,15 @@ class DateWrapper private constructor() {
                 localDate = date
             }
             return dateWrapper
+        }
+
+        /**
+         * @return a [DateWrapper] with the date from [localDate]
+         */
+        fun from(localDate: LocalDate): DateWrapper {
+            return DateWrapper().apply {
+                this.localDate = localDate
+            }
         }
     }
 }
