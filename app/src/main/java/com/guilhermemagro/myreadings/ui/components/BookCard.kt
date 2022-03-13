@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -48,13 +49,16 @@ fun BookCard(
 
     val progressColor = if (progress == 1.0F) Color.Green else MaterialTheme.colors.primary
 
+    val marginSmall = dimensionResource(id = R.dimen.margin_small)
+    val cardElevation = dimensionResource(id = R.dimen.card_elevation)
+
     Card(
         modifier = modifier,
-        elevation = 8.dp
+        elevation = cardElevation
     ) {
         Column(
-            modifier = Modifier.padding(8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.padding(marginSmall),
+            verticalArrangement = Arrangement.spacedBy(marginSmall),
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -67,7 +71,7 @@ fun BookCard(
                 )
                 Column(
                     horizontalAlignment = Alignment.End,
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                    verticalArrangement = Arrangement.spacedBy(marginSmall)
                 ) {
                     IconButton(
                         onClick = { onBookCardClick(book) }
