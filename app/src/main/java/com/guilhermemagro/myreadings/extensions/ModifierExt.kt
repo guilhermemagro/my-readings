@@ -1,4 +1,4 @@
-package com.guilhermemagro.myreadings.utils
+package com.guilhermemagro.myreadings.extensions
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
