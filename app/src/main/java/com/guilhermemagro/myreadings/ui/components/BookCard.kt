@@ -65,33 +65,29 @@ fun BookCard(
                     text = book.title.uppercase(Locale("pt","BR")),
                     style = MaterialTheme.typography.h6
                 )
-                Column(
-                    horizontalAlignment = Alignment.End,
-                    verticalArrangement = Arrangement.spacedBy(marginSmall)
+                IconButton(
+                    onClick = { onBookCardClick(book) }
                 ) {
-                    IconButton(
-                        onClick = { onBookCardClick(book) }
-                    ) {
-                        Icon(
-                            Icons.Default.Edit,
-                            contentDescription = "Editar"
-                        )
-                    }
-                    Text(
-                        text =
-                        buildAnnotatedString {
-                            withStyle(style = SpanStyle(fontWeight = FontWeight.SemiBold)) {
-                                append(book.currentPage.toString())
-                            }
-                            append(stringResource(R.string.book_card_pages_separation))
-                            withStyle(style = SpanStyle(fontWeight = FontWeight.SemiBold)) {
-                                append(book.totalPages.toString())
-                            }
-                            append(stringResource(R.string.book_card_pages_end))
-                        }
+                    Icon(
+                        Icons.Default.Edit,
+                        contentDescription = "Editar"
                     )
                 }
             }
+            Text(
+                modifier = Modifier.align(alignment = Alignment.End),
+                text =
+                buildAnnotatedString {
+                    withStyle(style = SpanStyle(fontWeight = FontWeight.SemiBold)) {
+                        append(book.currentPage.toString())
+                    }
+                    append(stringResource(R.string.book_card_pages_separation))
+                    withStyle(style = SpanStyle(fontWeight = FontWeight.SemiBold)) {
+                        append(book.totalPages.toString())
+                    }
+                    append(stringResource(R.string.book_card_pages_end))
+                }
+            )
             LinearProgressIndicator(
                 progress = progress,
                 modifier = Modifier.fillMaxWidth(),
