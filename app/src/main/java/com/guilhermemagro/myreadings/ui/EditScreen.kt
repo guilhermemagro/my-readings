@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.AlertDialog
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
@@ -98,6 +99,8 @@ fun EditScreenContent(
 
         var hasError by remember { mutableStateOf(false) }
 
+        val openDeleteBookDialog = remember { mutableStateOf(false) }
+
         val context = LocalContext.current
 
         val allFieldsFilled = titleTextState != "" &&
@@ -149,6 +152,44 @@ fun EditScreenContent(
             }
         }
 
+        if (openDeleteBookDialog.value) {
+            AlertDialog(
+                onDismissRequest = { openDeleteBookDialog.value = false },
+                title = { Text(stringResource(R.string.edit_screen_delete_message, book.title)) },
+                buttons = {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(all = 16.dp)
+                    ) {
+                        Button(
+                            onClick = { openDeleteBookDialog.value = false },
+                            modifier = Modifier.weight(1f, true)
+                        ) {
+                            Text(stringResource(R.string.edit_screen_delete_dialog_cancel))
+                        }
+                        Spacer(modifier = Modifier.size(16.dp))
+                        Button(
+                            onClick = ::deleteButtonAction,
+                            modifier = Modifier.weight(1f, true),
+                            colors = ButtonDefaults.buttonColors(
+                                backgroundColor = Color(0xFFEC532F),
+                                contentColor = Color.White
+                            )
+                        ) {
+                            Icon(
+                                Icons.Filled.Delete,
+                                contentDescription = stringResource(R.string.edit_screen_delete_icon),
+                                modifier = Modifier.size(ButtonDefaults.IconSize)
+                            )
+                            Spacer(modifier = Modifier.size(ButtonDefaults.IconSpacing))
+                            Text(stringResource(R.string.edit_screen_delete_dialog_delete))
+                        }
+                    }
+                }
+            )
+        }
+
         Column(
             modifier = Modifier.padding(16.dp)
         ) {
@@ -175,7 +216,7 @@ fun EditScreenContent(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Button(
-                    onClick = ::deleteButtonAction,
+                    onClick = { openDeleteBookDialog.value = true },
                     modifier = Modifier.weight(1f, true),
                     colors = ButtonDefaults.buttonColors(
                         backgroundColor = Color(0xFFEC532F),
@@ -188,7 +229,7 @@ fun EditScreenContent(
                         modifier = Modifier.size(ButtonDefaults.IconSize)
                     )
                     Spacer(modifier = Modifier.size(ButtonDefaults.IconSpacing))
-                    Text(stringResource(R.string.edit_screen_delete))
+                    Text(stringResource(R.string.edit_screen_delete_dialog_delete))
                 }
                 Spacer(modifier = Modifier.size(16.dp))
                 Button(
@@ -211,7 +252,7 @@ fun EditScreenContent(
             }
         }
     } ?: run {
-        Text(text = "Something went wrong! Try again later! =/")
+        Text(stringResource(R.string.edit_screen_creation_error))
     }
 }
 

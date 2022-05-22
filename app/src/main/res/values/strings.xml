@@ -35,10 +35,13 @@
     <string name="edit_screen_title">Editar livro</string>
     <string name="edit_screen_edit">Editar livro</string>
     <string name="edit_screen_edit_icon">Editar</string>
-    <string name="edit_screen_delete">Deletar livro</string>
+    <string name="edit_screen_delete_dialog_cancel">Cancelar</string>
+    <string name="edit_screen_delete_dialog_delete">Deletar</string>
     <string name="edit_screen_delete_icon">Deletar</string>
+    <string name="edit_screen_delete_message">Deseja deletar o livro %1$s?</string>
     <string name="edit_screen_delete_snackbar">Livro %1$s deletado com sucesso!</string>
     <string name="edit_screen_edit_snackbar">Livro %1$s editado com sucesso!</string>
     <string name="edit_screen_current_page_error">Página atual não pode ser superior ao total de páginas!</string>
     <string name="edit_screen_total_pages_error">Total de páginas não pode ser inferior à página atual!</string>
+    <string name="edit_screen_creation_error">Something went wrong! Try again later! =/</string>
 </resources>
