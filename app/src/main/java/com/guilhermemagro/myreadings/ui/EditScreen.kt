@@ -21,6 +21,7 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -30,6 +31,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.guilhermemagro.myreadings.R
@@ -52,6 +57,8 @@ fun EditScreen(
     onDeleteBook: (Book) -> Unit,
     onUpdateBook: (Book) -> Unit
 ) {
+    val openDeleteBookDialog = remember { mutableStateOf(false) }
+
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
@@ -66,6 +73,14 @@ fun EditScreen(
                             contentDescription = stringResource(id = R.string.return_arrow)
                         )
                     }
+                },
+                actions = {
+                    IconButton(onClick = { openDeleteBookDialog.value = true }) {
+                        Icon(
+                            Icons.Filled.Delete,
+                            contentDescription = stringResource(R.string.edit_screen_delete_icon)
+                        )
+                    }
                 }
             )
         }
@@ -75,7 +90,8 @@ fun EditScreen(
             appCoroutineScope = appCoroutineScope,
             bookAndRecords = bookAndRecords,
             onDeleteBook = onDeleteBook,
-            onUpdateBook = onUpdateBook
+            onUpdateBook = onUpdateBook,
+            openDeleteBookDialog = openDeleteBookDialog
         )
     }
 }
@@ -86,7 +102,8 @@ fun EditScreenContent(
     appCoroutineScope: CoroutineScope,
     bookAndRecords: BookAndRecords? = null,
     onDeleteBook: (Book) -> Unit,
-    onUpdateBook: (Book) -> Unit
+    onUpdateBook: (Book) -> Unit,
+    openDeleteBookDialog: MutableState<Boolean>
 ) {
     bookAndRecords?.let {
         val book = bookAndRecords.book.copy()
@@ -98,8 +115,6 @@ fun EditScreenContent(
         var totalPagesErrorMessage by remember { mutableStateOf("") }
 
         var hasError by remember { mutableStateOf(false) }
-
-        val openDeleteBookDialog = remember { mutableStateOf(false) }
 
         val context = LocalContext.current
 
@@ -155,7 +170,17 @@ fun EditScreenContent(
         if (openDeleteBookDialog.value) {
             AlertDialog(
                 onDismissRequest = { openDeleteBookDialog.value = false },
-                title = { Text(stringResource(R.string.edit_screen_delete_message, book.title)) },
+                title = {
+                    Text(
+                        text = buildAnnotatedString {
+                            append(stringResource(R.string.edit_screen_delete_message))
+                            withStyle(style = SpanStyle(fontWeight = FontWeight.SemiBold)) {
+                                append(book.title)
+                            }
+                            append("?")
+                        }
+                    )
+                },
                 buttons = {
                     Row(
                         modifier = Modifier
@@ -212,43 +237,22 @@ fun EditScreenContent(
                     clearErrorMessages()
                 }
             )
-            Row(
-                modifier = Modifier.fillMaxWidth()
+            Button(
+                onClick = ::editButtonAction,
+                modifier = Modifier.fillMaxWidth(),
+                enabled = allFieldsFilled,
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = Color(0xFF78D865),
+                    contentColor = Color.White
+                )
             ) {
-                Button(
-                    onClick = { openDeleteBookDialog.value = true },
-                    modifier = Modifier.weight(1f, true),
-                    colors = ButtonDefaults.buttonColors(
-                        backgroundColor = Color(0xFFEC532F),
-                        contentColor = Color.White
-                    )
-                ) {
-                    Icon(
-                        Icons.Filled.Delete,
-                        contentDescription = stringResource(R.string.edit_screen_delete_icon),
-                        modifier = Modifier.size(ButtonDefaults.IconSize)
-                    )
-                    Spacer(modifier = Modifier.size(ButtonDefaults.IconSpacing))
-                    Text(stringResource(R.string.edit_screen_delete_dialog_delete))
-                }
-                Spacer(modifier = Modifier.size(16.dp))
-                Button(
-                    onClick = ::editButtonAction,
-                    modifier = Modifier.weight(1f, true),
-                    enabled = allFieldsFilled,
-                    colors = ButtonDefaults.buttonColors(
-                        backgroundColor = Color(0xFF78D865),
-                        contentColor = Color.White
-                    )
-                ) {
-                    Icon(
-                        Icons.Filled.Edit,
-                        contentDescription = stringResource(R.string.edit_screen_edit_icon),
-                        modifier = Modifier.size(ButtonDefaults.IconSize)
-                    )
-                    Spacer(modifier = Modifier.size(ButtonDefaults.IconSpacing))
-                    Text(stringResource(R.string.edit_screen_edit))
-                }
+                Icon(
+                    Icons.Filled.Edit,
+                    contentDescription = stringResource(R.string.edit_screen_edit_icon),
+                    modifier = Modifier.size(ButtonDefaults.IconSize)
+                )
+                Spacer(modifier = Modifier.size(ButtonDefaults.IconSpacing))
+                Text(stringResource(R.string.edit_screen_edit))
             }
         }
     } ?: run {
@@ -272,6 +276,7 @@ fun EditScreenPreview() {
             records = listOf()
         ),
         onDeleteBook = {},
-        onUpdateBook = {}
+        onUpdateBook = {},
+        openDeleteBookDialog = remember { mutableStateOf(false) }
     )
 }
